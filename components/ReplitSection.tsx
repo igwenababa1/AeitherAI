@@ -133,7 +133,7 @@ print("Linear regression complete.")`;
                         <aside className="col-span-4 bg-black/50 p-4 overflow-y-auto">
                              <h4 className="font-bold text-sm mb-2 text-slate-300">Console</h4>
                              <div className="font-mono text-xs text-slate-300 space-y-1">
-                                {logs.map((log, index) => (
+                                {logs.filter(Boolean).map((log, index) => (
                                     <p key={index} className={log.includes('complete') ? 'text-green-400' : ''}>{log}</p>
                                 ))}
                              </div>

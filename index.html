@@ -119,6 +119,7 @@
               'blink': 'blink 1s step-end infinite',
               'aurora': 'aurora 20s infinite linear',
               'slide-videos': 'slide-videos 30s linear infinite',
+              'pulse-cursor': 'pulse-cursor 2.5s ease-in-out infinite',
             },
             keyframes: {
               fadeInUp: {
@@ -138,7 +139,17 @@
                 '33%, 61%': { transform: 'translateX(-100%)' },
                 '66%, 94%': { transform: 'translateX(-200%)' },
                 '100%': { transform: 'translateX(-300%)' },
-              }
+              },
+              'pulse-cursor': {
+                '0%, 100%': {
+                  transform: 'scale(1) rotate(-12deg)',
+                  filter: 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))'
+                },
+                '50%': {
+                  transform: 'scale(1.1) rotate(-12deg)',
+                  filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.8))'
+                }
+              },
             },
           },
         },

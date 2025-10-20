@@ -142,10 +142,10 @@ export default Whiteboard;
           {collaborators.map(c => c.visible && (
             <div 
               key={c.id} 
-              className="absolute z-10 transition-all duration-1000 ease-in-out" 
+              className="absolute z-10 transition-all duration-1500 ease-out" 
               style={{ left: `${c.x}%`, top: `${c.y}%` }}
             >
-              <CursorIcon className={`w-6 h-6 transform -rotate-12 ${c.textColor}`} />
+              <CursorIcon className={`w-6 h-6 animate-pulse-cursor ${c.textColor}`} />
               <div className={`absolute top-5 left-4 whitespace-nowrap px-2 py-0.5 rounded-md text-white text-xs ${c.color}`}>
                 {c.name}
                 {c.typing && <span className="inline-block w-0.5 h-3 bg-white ml-1 animate-blink align-middle"></span>}
@@ -246,7 +246,7 @@ export default Whiteboard;
                    {step === 5 && <LogSkeleton />}
                    {step >= 6 && (
                      <pre className="text-slate-300 whitespace-pre-wrap animate-fade-in">
-                       {deployLogs.split('\n').map((line, i) => (
+                       {deployLogs.split('\n').filter(Boolean).map((line, i) => (
                           <div key={i} className="flex items-center gap-2">
                             <span className={line.includes('SUCCESS') ? 'text-green-400' : line.includes('URL') ? 'text-yellow-400' : 'text-slate-400'}>
                               {line.includes('[URL]') ? '🚀' : '✓'}

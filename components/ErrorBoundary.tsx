@@ -10,9 +10,7 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  // FIX: Re-added the constructor to explicitly call super(props).
-  // This ensures 'this.props' is correctly initialized on the component instance,
-  // resolving the error where the 'props' property was not found.
+  // FIX: Replaced class field state initialization with a constructor to ensure `this.props` is correctly typed and accessible.
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
