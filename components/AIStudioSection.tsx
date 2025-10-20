@@ -48,15 +48,15 @@ const AIStudioSection: React.FC<AIStudioSectionProps> = ({ onLaunchPlayground })
     if (isVisible) {
       const allTimeouts: number[] = [];
       
-      // Step animations
-      allTimeouts.push(setTimeout(() => setStep(1), 500)); // Prompt appears
-      allTimeouts.push(setTimeout(() => setStep(2), 2500)); // Plan appears
-      allTimeouts.push(setTimeout(() => setStep(3), 4500)); // Arch starts
-      allTimeouts.push(setTimeout(() => setStep(4), 5000)); // Code starts
-      allTimeouts.push(setTimeout(() => setStep(5), 8000)); // Deploy starts
-      allTimeouts.push(setTimeout(() => setStep(6), 11000)); // Done
+      // Step animations - REFINED TIMING
+      allTimeouts.push(setTimeout(() => setStep(1), 500));    // Prompt appears
+      allTimeouts.push(setTimeout(() => setStep(2), 2500));   // Plan appears
+      allTimeouts.push(setTimeout(() => setStep(3), 4500));   // Arch starts
+      allTimeouts.push(setTimeout(() => setStep(4), 5500));   // Code starts
+      allTimeouts.push(setTimeout(() => setStep(5), 7500));   // Deploy starts
+      allTimeouts.push(setTimeout(() => setStep(6), 9500));   // Done
 
-      // Collaborator animations
+      // Collaborator animations - REFINED TIMING
       // Alice appears and moves to chat
       allTimeouts.push(setTimeout(() => {
         setCollaborators(prev => prev.map(c => c.id === 1 ? { ...c, visible: true, x: 15, y: 25 } : c));
@@ -75,12 +75,12 @@ const AIStudioSection: React.FC<AIStudioSectionProps> = ({ onLaunchPlayground })
       // Bob appears and moves to architecture diagram
       allTimeouts.push(setTimeout(() => {
         setCollaborators(prev => prev.map(c => c.id === 2 ? { ...c, visible: true, x: 50, y: 30 } : c));
-      }, 3000));
+      }, 3500));
       
       // Bob moves around the architecture diagram
       allTimeouts.push(setTimeout(() => {
         setCollaborators(prev => prev.map(c => c.id === 2 ? { ...c, x: 65, y: 80 } : c));
-      }, 5000));
+      }, 5500));
       allTimeouts.push(setTimeout(() => {
         setCollaborators(prev => prev.map(c => c.id === 2 ? { ...c, x: 80, y: 50 } : c));
       }, 7000));

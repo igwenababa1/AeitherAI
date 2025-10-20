@@ -78,7 +78,7 @@
       .line-connector {
         stroke-dasharray: 1000;
         stroke-dashoffset: 1000;
-        animation: draw-and-glow 2s ease-out forwards;
+        animation: draw-and-glow 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
       @keyframes draw-and-glow {
         70% {
@@ -115,7 +115,7 @@
               'border-color': '#30363D',
             },
             animation: {
-              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
               'blink': 'blink 1s step-end infinite',
               'aurora': 'aurora 20s infinite linear',
               'slide-videos': 'slide-videos 30s linear infinite',
