@@ -2,7 +2,7 @@
 import React from 'react';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { UsersIcon } from './icons/UsersIcon';
-import { ServerStackIcon } from './icons/ServerStackIcon';
+import { CircleStackIcon } from './icons/CircleStackIcon';
 import { CpuChipIcon } from './icons/CpuChipIcon';
 import { SparklesIcon } from './icons/SparklesIcon';
 import { ShieldCheckIcon } from './icons/ShieldCheckIcon';
@@ -26,7 +26,7 @@ const features: Feature[] = [
     description: 'Invite your entire team, agency, or organization. No per-seat fees for editors.',
   },
   {
-    icon: ServerStackIcon,
+    icon: CircleStackIcon,
     title: '5x More Storage',
     description: 'Baseline storage that is five times the industry standard for similar tiers.',
   },

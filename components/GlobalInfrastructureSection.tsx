@@ -4,6 +4,7 @@ import { CloudArrowUpIcon } from './icons/CloudArrowUpIcon';
 import { CircleStackIcon } from './icons/CircleStackIcon';
 import { ShieldCheckIcon } from './icons/ShieldCheckIcon';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
+import { Globe } from './Globe';
 
 
 interface InfraFeature {
@@ -44,8 +45,7 @@ const GlobalInfrastructureSection: React.FC = () => {
       className="relative py-20 bg-slate-900 overflow-hidden"
       ref={ref}
     >
-        <div className="absolute inset-0 bg-grid-slate-800/20 [mask-image:linear-gradient(to_bottom,white_20%,transparent_100%)]"></div>
-        <img src="https://raw.githubusercontent.com/Gesell-it/world-map-repo/main/map.svg" alt="World map" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none" />
+      <Globe />
       <div className={`container mx-auto px-6 relative z-10 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Built for Global Scale</h2>

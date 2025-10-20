@@ -1,7 +1,8 @@
 
+
 import React from 'react';
 import { UserPlusIcon } from './icons/UserPlusIcon';
-import { CommandLineIcon } from './icons/CommandLineIcon';
+import { TerminalIcon } from './icons/TerminalIcon';
 import { RocketLaunchIcon } from './icons/RocketLaunchIcon';
 import { GlobeAltIcon } from './icons/GlobeAltIcon';
 import { FolderPlusIcon } from './icons/FolderPlusIcon';
@@ -16,7 +17,7 @@ interface Step {
 const steps: Step[] = [
     { icon: UserPlusIcon, title: "Sign Up & Create", description: "A user signs up and creates a new 'Project' named 'E-Commerce MVP'." },
     { icon: FolderPlusIcon, title: "Invite Team", description: "They invite a co-founder (Admin), a developer (Developer), and an investor (Stakeholder)." },
-    { icon: CommandLineIcon, title: "Generate with AI", description: "Using the AI-powered IDE, they generate the core of a storefront app in minutes." },
+    { icon: TerminalIcon, title: "Generate with AI", description: "Using the AI-powered IDE, they generate the core of a storefront app in minutes." },
     { icon: RocketLaunchIcon, title: "One-Click Deploy", description: "They deploy the app with a single click, creating a live, shareable 'Deployment'." },
     { icon: GlobeAltIcon, title: "Publish & Showcase", description: "They publish the Project to their public Company Profile to showcase progress." },
 ];

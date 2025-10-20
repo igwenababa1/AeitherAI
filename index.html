@@ -26,6 +26,43 @@
         opacity: 1;
         transform: translateY(0);
       }
+      @keyframes rotate-globe {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+      }
+      .globe-bg {
+        background-image: url('https://raw.githubusercontent.com/Gesell-it/world-map-repo/main/map.svg');
+        background-size: 200%;
+        animation: rotate-globe 40s linear infinite;
+        opacity: 0.15;
+      }
+      @keyframes move-grid {
+        0% { background-position: 0 0; }
+        100% { background-position: 40px 40px; }
+      }
+      .animated-grid-background {
+        position: relative;
+        overflow: hidden;
+      }
+      .animated-grid-background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          linear-gradient(rgba(45, 212, 191, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(45, 212, 191, 0.07) 1px, transparent 1px);
+        background-size: 40px 40px;
+        animation: move-grid 20s linear infinite;
+        z-index: 0;
+        opacity: 0.5;
+      }
+      .animated-grid-background .container {
+        position: relative;
+        z-index: 1;
+      }
     </style>
     <script>
       tailwind.config = {
@@ -38,6 +75,7 @@
               'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
               'blink': 'blink 1s step-end infinite',
               'aurora': 'aurora 20s infinite linear',
+              'slide-videos': 'slide-videos 30s linear infinite',
             },
             keyframes: {
               fadeInUp: {
@@ -51,6 +89,12 @@
                 '0%': { 'background-position': '0% 50%' },
                 '50%': { 'background-position': '100% 50%' },
                 '100%': { 'background-position': '0% 50%' },
+              },
+              'slide-videos': {
+                '0%, 28%': { transform: 'translateX(0%)' },
+                '33%, 61%': { transform: 'translateX(-100%)' },
+                '66%, 94%': { transform: 'translateX(-200%)' },
+                '100%': { transform: 'translateX(-300%)' },
               }
             },
           },

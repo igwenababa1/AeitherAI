@@ -49,7 +49,7 @@ const AIAgentsSection: React.FC = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section id="ai-agents" className="py-20 bg-slate-900/70" ref={ref}>
+    <section id="ai-agents" className="py-20 bg-slate-900/70 animated-grid-background" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Meet Your AI-Powered Development Team</h2>

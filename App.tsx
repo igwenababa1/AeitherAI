@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import VideoHeroSection from './components/VideoHeroSection';
 import VisionSection from './components/VisionSection';
 import FeatureSection from './components/FeatureSection';
 import BuildAISection from './components/BuildAISection';
@@ -43,7 +43,7 @@ function App() {
     <div className="bg-slate-900 text-slate-300">
       <Header onLaunchPlayground={() => handleLaunchPlayground()} />
       <main>
-        <Hero onLaunchPlayground={() => handleLaunchPlayground()} />
+        <VideoHeroSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <VisionSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <FeatureSection />
         <BuildAISection />

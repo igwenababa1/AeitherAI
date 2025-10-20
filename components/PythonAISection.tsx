@@ -47,7 +47,7 @@ const FeatureCard: React.FC<PythonFeature> = ({ icon: Icon, title, description }
 const PythonAISection: React.FC = () => {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="python-ai" className="py-20 bg-slate-900/70" ref={ref}>
+    <section id="python-ai" className="py-20 bg-slate-900/70 animated-grid-background" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">The Ultimate Environment for <span className="text-cyan-400">Python &amp; AI</span></h2>
