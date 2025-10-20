@@ -9,19 +9,20 @@ import { DockerIcon } from './icons/DockerIcon';
 interface Integration {
   name: string;
   icon: React.ElementType;
+  href: string;
 }
 
 const integrations: Integration[] = [
-    { name: 'GitHub', icon: GitHubIcon },
-    { name: 'PostgreSQL', icon: PostgresIcon },
-    { name: 'MongoDB', icon: MongoDBIcon },
-    { name: 'Redis', icon: RedisIcon },
-    { name: 'Docker', icon: DockerIcon },
-    { name: 'Slack', icon: SlackIcon },
+    { name: 'GitHub', icon: GitHubIcon, href: 'https://github.com' },
+    { name: 'PostgreSQL', icon: PostgresIcon, href: 'https://www.postgresql.org/' },
+    { name: 'MongoDB', icon: MongoDBIcon, href: 'https://www.mongodb.com/' },
+    { name: 'Redis', icon: RedisIcon, href: 'https://redis.io/' },
+    { name: 'Docker', icon: DockerIcon, href: 'https://www.docker.com/' },
+    { name: 'Slack', icon: SlackIcon, href: 'https://slack.com' },
 ];
 
 const IntegrationCard: React.FC<{ icon: React.ElementType }> = ({ icon: Icon }) => (
-    <div className="aspect-square bg-slate-800/50 p-6 flex items-center justify-center rounded-xl border border-slate-700 hover:border-cyan-400 hover:-translate-y-1 transition-all duration-300">
+    <div className="aspect-square bg-slate-800/50 p-6 flex items-center justify-center rounded-xl border border-slate-700 group-hover:border-cyan-400 transition-all duration-300">
       <Icon className="w-16 h-16 text-slate-400 transition-colors group-hover:text-white" />
     </div>
 );
@@ -39,10 +40,10 @@ const IntegrationsSection: React.FC = () => {
         </div>
         <div className="max-w-4xl mx-auto grid grid-cols-3 md:grid-cols-6 gap-8">
           {integrations.map((integration) => (
-             <div key={integration.name} className="flex flex-col items-center justify-center group">
+             <a key={integration.name} href={integration.href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center group glow-on-hover rounded-xl">
                 <IntegrationCard icon={integration.icon} />
                 <p className="mt-3 font-semibold text-slate-400 group-hover:text-white transition-colors">{integration.name}</p>
-             </div>
+             </a>
           ))}
         </div>
       </div>

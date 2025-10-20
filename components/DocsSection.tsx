@@ -1,10 +1,12 @@
 import React from 'react';
 import { BookOpenIcon } from './icons/BookOpenIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 const DocsSection: React.FC = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="docs" className="py-20 bg-slate-900">
-      <div className="container mx-auto px-6 text-center">
+    <section id="docs" className="py-20 bg-slate-900" ref={ref}>
+      <div className={`container mx-auto px-6 text-center section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <h2 className="text-3xl md:text-4xl font-extrabold text-white">Dive Deeper Into the Details</h2>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4 mb-8">
           Our comprehensive documentation provides detailed guides, API references, and tutorials to help you get the most out of AetherWorks. Explore the full capabilities of our platform.

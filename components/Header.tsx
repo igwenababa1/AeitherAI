@@ -17,11 +17,14 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
           <a href="#features" className="text-slate-300 hover:text-cyan-400 transition-colors">
             Features
           </a>
+          <a href="#workflow" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            Workflow
+          </a>
           <a href="#templates" className="text-slate-300 hover:text-cyan-400 transition-colors">
             Templates
           </a>
-          <a href="#testimonials" className="text-slate-300 hover:text-cyan-400 transition-colors">
-            Testimonials
+          <a href="#pricing" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            Pricing
           </a>
            <a href="#team" className="text-slate-300 hover:text-cyan-400 transition-colors">
             Team

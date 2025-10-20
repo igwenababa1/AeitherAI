@@ -8,14 +8,14 @@ const Footer: React.FC = () => {
   const footerLinks = [
     { name: 'Features', href: '#features' },
     { name: 'Templates', href: '#templates' },
-    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Pricing', href: '#pricing' },
     { name: 'Team', href: '#team' },
   ];
 
   const socialLinks = [
-    { name: 'Twitter', href: '#', icon: TwitterIcon },
-    { name: 'LinkedIn', href: '#', icon: LinkedInIcon },
-    { name: 'GitHub', href: '#', icon: GitHubIcon },
+    { name: 'Twitter', href: 'https://twitter.com/aetherworks', icon: TwitterIcon },
+    { name: 'LinkedIn', href: 'https://linkedin.com/company/aetherworks', icon: LinkedInIcon },
+    { name: 'GitHub', href: 'https://github.com/aetherworks', icon: GitHubIcon },
   ];
 
   return (
@@ -46,10 +46,10 @@ const Footer: React.FC = () => {
               <h2 className="mb-6 text-sm font-semibold text-slate-200 uppercase">Legal</h2>
               <ul className="text-slate-400">
                 <li className="mb-4">
-                  <a href="#" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
+                  <a href="/privacy-policy" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-cyan-400 transition-colors">Terms & Conditions</a>
+                  <a href="/terms-of-service" className="hover:text-cyan-400 transition-colors">Terms & Conditions</a>
                 </li>
               </ul>
             </div>
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
           </span>
           <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
             {socialLinks.map((social) => (
-              <a key={social.name} href={social.href} className="text-slate-400 hover:text-white">
+              <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
                 <social.icon className="w-5 h-5" />
                 <span className="sr-only">{social.name}</span>
               </a>

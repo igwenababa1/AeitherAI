@@ -41,7 +41,7 @@ const TestimonialsSection: React.FC = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className={`bg-slate-800/50 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center section-fade-in ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: `${index * 100}ms`}}>
+            <div key={index} className={`bg-slate-800/50 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center glow-on-hover section-fade-in ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: `${index * 100}ms`}}>
               <img src={testimonial.imageUrl} alt={testimonial.author} className="w-24 h-24 rounded-full mb-4 border-2 border-cyan-400 object-cover" />
               <p className="text-slate-300 italic mb-6 flex-grow">"{testimonial.quote}"</p>
               <div>

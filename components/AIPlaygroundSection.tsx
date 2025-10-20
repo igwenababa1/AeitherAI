@@ -8,6 +8,8 @@ import { BeakerIcon } from './icons/BeakerIcon';
 import { GeminiIcon } from './icons/GeminiIcon';
 import { ClaudeIcon } from './icons/ClaudeIcon';
 import { MistralIcon } from './icons/MistralIcon';
+import { ArrowDownTrayIcon } from './icons/ArrowDownTrayIcon';
+import { TrashIcon } from './icons/TrashIcon';
 
 
 // --- Highlight.js Declaration ---
@@ -19,6 +21,12 @@ interface SimulationData {
   fileSystem: { [key: string]: string[] };
   terminalOutput: string[];
   isBuildComplete: boolean;
+}
+
+interface SavedSimulation {
+    name: string;
+    architecturalPlan: string;
+    fileSystem: { [key: string]: string[] };
 }
 
 type AIModel = 'gemini' | 'claude' | 'mistral';
@@ -140,7 +148,30 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
   const [currentPrompt, setCurrentPrompt] = useState(initialPrompt);
   const [promptHistory, setPromptHistory] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState<AIModel>('gemini');
+  const [savedSimulations, setSavedSimulations] = useState<SavedSimulation[]>([]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveName, setSaveName] = useState('');
+
   const terminalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+        const saved = localStorage.getItem('aetherworks-simulations');
+        if (saved) {
+            setSavedSimulations(JSON.parse(saved));
+        }
+    } catch (e) {
+        console.error("Failed to load saved simulations from localStorage", e);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+        localStorage.setItem('aetherworks-simulations', JSON.stringify(savedSimulations));
+    } catch (e) {
+        console.error("Failed to save simulations to localStorage", e);
+    }
+  }, [savedSimulations]);
 
   useEffect(() => {
     if (initialPrompt) {
@@ -162,6 +193,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
     if (!prompt.trim() || isLoading) return;
 
     setIsLoading(true);
+    setIsSaving(false);
     setCurrentPrompt(prompt);
     setPromptHistory(prev => [prompt, ...prev.filter(p => p !== prompt)]);
 
@@ -250,10 +282,40 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleBuildFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     runBuildSimulation(currentPrompt);
   };
+
+  const handleSaveFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!saveName.trim()) return;
+
+    const newSave: SavedSimulation = {
+        name: saveName,
+        architecturalPlan: simulationData.architecturalPlan,
+        fileSystem: simulationData.fileSystem
+    };
+
+    setSavedSimulations(prev => [newSave, ...prev]);
+    setSaveName('');
+    setIsSaving(false);
+  };
+
+  const handleLoadSimulation = (sim: SavedSimulation) => {
+    if (isLoading) return;
+    setSimulationData({
+        architecturalPlan: sim.architecturalPlan,
+        fileSystem: sim.fileSystem,
+        terminalOutput: [`✓ Loaded build: "${sim.name}"`, 'Live preview is now active.'],
+        isBuildComplete: true,
+    });
+    setCurrentPrompt('');
+  }
+
+  const handleDeleteSimulation = (index: number) => {
+    setSavedSimulations(prev => prev.filter((_, i) => i !== index));
+  }
 
 
   return (
@@ -276,7 +338,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
               <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Explorer</h3>
               {Object.keys(simulationData.fileSystem).length > 0 ? (
                   Object.entries(simulationData.fileSystem).map(([folder, files]) => (
-                      <div key={folder}>
+                      <div key={folder} className="mb-2">
                           <div className="flex items-center gap-2 text-white font-semibold">
                               <FolderIcon className="w-5 h-5" /> {folder}
                           </div>
@@ -295,7 +357,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
               <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">History</h3>
               {promptHistory.length > 0 ? (
                 <ul className="space-y-2">
-                  {promptHistory.slice(0, 10).map((prompt, i) => (
+                  {promptHistory.slice(0, 5).map((prompt, i) => (
                     <li key={i}>
                       <button
                         onClick={() => runBuildSimulation(prompt)}
@@ -310,49 +372,106 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
                 </ul>
               ) : <p className="text-slate-500 text-sm">No build history yet.</p>}
             </div>
+             <div className="mt-6 pt-6 border-t border-slate-800">
+                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Saved Builds</h3>
+                 {savedSimulations.length > 0 ? (
+                    <ul className="space-y-2">
+                    {savedSimulations.map((sim, i) => (
+                        <li key={i} className="flex items-center justify-between p-2 rounded-md bg-slate-800/50 hover:bg-slate-700/70 group">
+                            <button
+                                onClick={() => handleLoadSimulation(sim)}
+                                disabled={isLoading}
+                                className="flex-grow text-left text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                title={sim.name}
+                            >
+                                <p className="truncate text-slate-300">{sim.name}</p>
+                            </button>
+                            <button 
+                                onClick={() => handleDeleteSimulation(i)} 
+                                className="ml-2 p-1 text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                                title="Delete build"
+                            >
+                                <TrashIcon className="w-4 h-4" />
+                            </button>
+                        </li>
+                    ))}
+                    </ul>
+                ) : <p className="text-slate-500 text-sm">No saved builds.</p>}
+            </div>
           </div>
 
           {/* Right Pane: Prompt, Plan, Preview, Terminal */}
           <div className="w-4/5 flex flex-col">
             {/* Prompt Input Area */}
             <div className="p-4 border-b border-slate-800 flex-shrink-0">
-              <form onSubmit={handleFormSubmit}>
-                <div className="mb-3">
-                    <label className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 block">AI Model</label>
+              {isSaving ? (
+                <form onSubmit={handleSaveFormSubmit}>
+                    <label htmlFor="save-name-input" className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 block">Save Build As</label>
                     <div className="flex items-center gap-2">
-                        {models.map(model => (
-                            <button
-                                type="button"
-                                key={model.id}
-                                onClick={() => setSelectedModel(model.id)}
-                                disabled={isLoading}
-                                className={`flex items-center gap-2 py-2 px-3 rounded-lg border text-sm font-semibold transition-all duration-200 disabled:opacity-50 ${selectedModel === model.id ? 'bg-cyan-500/10 text-cyan-300 border-cyan-500' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'}`}
-                            >
-                                <model.icon className={`w-5 h-5 ${selectedModel === model.id ? 'text-cyan-400' : 'text-slate-400'}`} />
-                                <span>{model.name}</span>
-                            </button>
-                        ))}
+                        <input
+                        id="save-name-input"
+                        type="text"
+                        value={saveName}
+                        onChange={(e) => setSaveName(e.target.value)}
+                        className="flex-grow bg-slate-800 border border-slate-700 rounded-md p-2 text-slate-300 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                        placeholder="e.g., My To-Do App v1"
+                        autoFocus
+                        />
+                        <button type="submit" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg">Save</button>
+                        <button type="button" onClick={() => setIsSaving(false)} className="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
                     </div>
-                </div>
+                </form>
+              ) : (
+                <form onSubmit={handleBuildFormSubmit}>
+                    <div className="mb-3">
+                        <label className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 block">AI Model</label>
+                        <div className="flex items-center gap-2">
+                            {models.map(model => (
+                                <button
+                                    type="button"
+                                    key={model.id}
+                                    onClick={() => setSelectedModel(model.id)}
+                                    disabled={isLoading}
+                                    className={`flex items-center gap-2 py-2 px-3 rounded-lg border text-sm font-semibold transition-all duration-200 disabled:opacity-50 ${selectedModel === model.id ? 'bg-cyan-500/10 text-cyan-300 border-cyan-500' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'}`}
+                                >
+                                    <model.icon className={`w-5 h-5 ${selectedModel === model.id ? 'text-cyan-400' : 'text-slate-400'}`} />
+                                    <span>{model.name}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
-                <label htmlFor="prompt-input" className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 block">Prompt</label>
-                <textarea
-                  id="prompt-input"
-                  rows={2}
-                  value={currentPrompt}
-                  onChange={(e) => setCurrentPrompt(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-md p-2 text-slate-300 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
-                  placeholder="Describe the application you want to build..."
-                />
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="mt-3 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <BeakerIcon className="w-5 h-5" />
-                  <span>{isLoading ? 'Building...' : 'Build Application'}</span>
-                </button>
-              </form>
+                    <label htmlFor="prompt-input" className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 block">Prompt</label>
+                    <textarea
+                    id="prompt-input"
+                    rows={2}
+                    value={currentPrompt}
+                    onChange={(e) => setCurrentPrompt(e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-md p-2 text-slate-300 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                    placeholder="Describe the application you want to build..."
+                    />
+                    <div className="flex items-center gap-4 mt-3">
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="flex-grow flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <BeakerIcon className="w-5 h-5" />
+                            <span>{isLoading ? 'Building...' : 'Build Application'}</span>
+                        </button>
+                        {simulationData.isBuildComplete && !isLoading && (
+                             <button
+                                type="button"
+                                onClick={() => setIsSaving(true)}
+                                className="flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+                            >
+                                <ArrowDownTrayIcon className="w-5 h-5" />
+                                <span>Save Build</span>
+                            </button>
+                        )}
+                    </div>
+                </form>
+              )}
             </div>
 
             {/* Main Content Area */}

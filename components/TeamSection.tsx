@@ -55,7 +55,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 const TeamMemberCard: React.FC<TeamMember> = ({ name, role, imageUrl, socials }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 text-center transition-all duration-300 hover:border-cyan-400 hover:-translate-y-1">
+  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 text-center glow-on-hover">
     <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-2 border-slate-700 group-hover:border-cyan-400 transition-colors">
       <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
     </div>

@@ -3,11 +3,14 @@ import React from 'react';
 import { BuildingStorefrontIcon } from './icons/BuildingStorefrontIcon';
 import { LightBulbIcon } from './icons/LightBulbIcon';
 import { BuildingOfficeIcon } from './icons/BuildingOfficeIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 const PricingSection: React.FC = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
   return (
-    <section id="pricing" className="py-20 bg-slate-900/70">
-      <div className="container mx-auto px-6">
+    <section id="pricing" className="py-20 bg-slate-900/70" ref={ref}>
+      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Target Audience & Monetization</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
@@ -49,7 +52,7 @@ const PricingSection: React.FC = () => {
           </div>
           <div>
             <h3 className="text-2xl font-bold text-white mb-6 text-center lg:text-left">Disruptive Pricing Model</h3>
-            <div className="bg-slate-800/50 border border-violet-500 rounded-xl p-8 shadow-2xl shadow-purple-500/10">
+            <div className="bg-slate-800/50 border border-violet-500 rounded-xl p-8 shadow-2xl shadow-purple-500/10 glow-on-hover">
               <h4 className="text-2xl font-bold text-violet-400 mb-3">Project-Based Pricing</h4>
               <p className="text-slate-400 mb-4">
                 Instead of confusing tiers and per-user fees, you pay a flat, predictable rate for each active "Project". This model provides cost certainty while aligning our success with yours.

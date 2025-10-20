@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import VisionSection from './components/VisionSection';
 import FeatureSection from './components/FeatureSection';
+import BuildAISection from './components/BuildAISection';
+import WorkflowSection from './components/WorkflowSection';
+import AIAgentsSection from './components/AIAgentsSection';
+import PythonAISection from './components/PythonAISection';
 import TemplatesSection from './components/TemplatesSection';
-import AIPlaygroundSection from './components/AIPlaygroundSection';
+import AdvancedFeaturesSection from './components/AdvancedFeaturesSection';
+import TechSpecSection from './components/TechSpecSection';
+import IntegrationsSection from './components/IntegrationsSection';
+import GlobalInfrastructureSection from './components/GlobalInfrastructureSection';
+import PricingSection from './components/PricingSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import TeamSection from './components/TeamSection';
+import AboutSection from './components/AboutSection';
+import DocsSection from './components/DocsSection';
+import CTASection from './components/CTASection';
 import Footer from './components/Footer';
-import BuildAISection from './components/BuildAISection';
-import PythonAISection from './components/PythonAISection';
-import IntegrationsSection from './components/IntegrationsSection';
-import AIAgentsSection from './components/AIAgentsSection';
-import GlobalInfrastructureSection from './components/GlobalInfrastructureSection';
-import VisionSection from './components/VisionSection';
-
+import AIPlaygroundSection from './components/AIPlaygroundSection';
 
 function App() {
   const [showPlayground, setShowPlayground] = useState(false);
@@ -40,14 +46,21 @@ function App() {
         <Hero onLaunchPlayground={() => handleLaunchPlayground()} />
         <VisionSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <FeatureSection />
-        <AIAgentsSection />
         <BuildAISection />
-        <TemplatesSection onTemplateSelect={handleTemplateSelect} />
+        <WorkflowSection />
+        <AIAgentsSection />
         <PythonAISection />
+        <TemplatesSection onTemplateSelect={handleTemplateSelect} />
+        <AdvancedFeaturesSection />
+        <TechSpecSection />
         <IntegrationsSection />
         <GlobalInfrastructureSection />
+        <PricingSection />
         <TestimonialsSection />
         <TeamSection />
+        <AboutSection />
+        <DocsSection />
+        <CTASection onLaunchPlayground={() => handleLaunchPlayground()} />
       </main>
       <Footer />
       {showPlayground && <AIPlaygroundSection onClose={handleClosePlayground} initialPrompt={selectedTemplatePrompt} />}

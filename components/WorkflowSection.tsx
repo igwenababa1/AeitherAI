@@ -5,6 +5,7 @@ import { CommandLineIcon } from './icons/CommandLineIcon';
 import { RocketLaunchIcon } from './icons/RocketLaunchIcon';
 import { GlobeAltIcon } from './icons/GlobeAltIcon';
 import { FolderPlusIcon } from './icons/FolderPlusIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface Step {
     icon: React.ElementType;
@@ -21,9 +22,11 @@ const steps: Step[] = [
 ];
 
 const WorkflowSection: React.FC = () => {
+    const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
     return (
-        <section id="workflow" className="py-20 bg-slate-900">
-            <div className="container mx-auto px-6">
+        <section id="workflow" className="py-20 bg-slate-900" ref={ref}>
+            <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-extrabold text-white">The MVP Workflow, Simplified</h2>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
@@ -35,7 +38,7 @@ const WorkflowSection: React.FC = () => {
                     {steps.map((step, index) => (
                         <div key={index} className="md:flex items-center mb-12 relative">
                             <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left md:ml-auto'}`}>
-                                <div className="p-6 bg-slate-800/50 border border-slate-700 rounded-xl">
+                                <div className="p-6 bg-slate-800/50 border border-slate-700 rounded-xl glow-on-hover">
                                     <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
                                     <p className="text-slate-400">{step.description}</p>
                                 </div>
