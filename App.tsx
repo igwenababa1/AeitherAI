@@ -12,6 +12,7 @@ import PythonAISection from './components/PythonAISection';
 import IntegrationsSection from './components/IntegrationsSection';
 import AIAgentsSection from './components/AIAgentsSection';
 import GlobalInfrastructureSection from './components/GlobalInfrastructureSection';
+import VisionSection from './components/VisionSection';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <Header onLaunchPlayground={() => handleLaunchPlayground()} />
       <main>
         <Hero onLaunchPlayground={() => handleLaunchPlayground()} />
+        <VisionSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <FeatureSection />
         <AIAgentsSection />
         <BuildAISection />

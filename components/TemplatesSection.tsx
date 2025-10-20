@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { ShoppingCartIcon } from './icons/ShoppingCartIcon';
 import { NewspaperIcon } from './icons/NewspaperIcon';
@@ -6,6 +7,7 @@ import { ChatBubbleLeftRightIcon } from './icons/ChatBubbleLeftRightIcon';
 import { ClipboardDocumentCheckIcon } from './icons/ClipboardDocumentCheckIcon';
 import { VideoCameraIcon } from './icons/VideoCameraIcon';
 import { UserGroupIcon } from './icons/UserGroupIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface Template {
   icon: React.ElementType;
@@ -58,7 +60,7 @@ interface TemplateCardProps extends Template {
 }
 
 const TemplateCard: React.FC<TemplateCardProps> = ({ icon: Icon, title, description, prompt, onSelect }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex flex-col hover:border-cyan-400 hover:-translate-y-1 transition-all duration-300">
+  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex flex-col glow-on-hover">
     <div className="flex items-start gap-4">
         <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex-shrink-0 flex items-center justify-center">
             <Icon className="w-6 h-6 text-cyan-400" />
@@ -82,9 +84,10 @@ interface TemplatesSectionProps {
 }
 
 const TemplatesSection: React.FC<TemplatesSectionProps> = ({ onTemplateSelect }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="templates" className="py-20 bg-slate-900">
-      <div className="container mx-auto px-6">
+    <section id="templates" className="py-20 bg-slate-900" ref={ref}>
+      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Start Building Immediately</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
@@ -92,8 +95,10 @@ const TemplatesSection: React.FC<TemplatesSectionProps> = ({ onTemplateSelect })
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {templates.map((template) => (
-            <TemplateCard key={template.title} {...template} onSelect={onTemplateSelect} />
+          {templates.map((template, index) => (
+             <div key={template.title} style={{ transitionDelay: `${index * 100}ms`}} className={`section-fade-in ${isVisible ? 'is-visible' : ''}`}>
+                <TemplateCard {...template} onSelect={onTemplateSelect} />
+             </div>
           ))}
         </div>
       </div>

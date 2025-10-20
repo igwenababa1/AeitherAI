@@ -2,6 +2,8 @@ import React from 'react';
 import { UserCircleIcon } from './icons/UserCircleIcon';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 import { TwitterIcon } from './icons/TwitterIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
+
 
 interface TeamMember {
   name: string;
@@ -71,9 +73,11 @@ const TeamMemberCard: React.FC<TeamMember> = ({ name, role, imageUrl, socials })
 );
 
 const TeamSection: React.FC = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
   return (
-    <section id="team" className="py-20 bg-slate-900">
-      <div className="container mx-auto px-6">
+    <section id="team" className="py-20 bg-slate-900" ref={ref}>
+      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Meet the Innovators</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
@@ -81,8 +85,10 @@ const TeamSection: React.FC = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teamMembers.map((member) => (
-            <TeamMemberCard key={member.name} {...member} />
+          {teamMembers.map((member, index) => (
+             <div key={member.name} style={{ transitionDelay: `${index * 100}ms`}} className={`section-fade-in ${isVisible ? 'is-visible' : ''}`}>
+                <TeamMemberCard {...member} />
+             </div>
           ))}
         </div>
       </div>

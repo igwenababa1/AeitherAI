@@ -3,6 +3,8 @@ import { ShareIcon } from './icons/ShareIcon';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { RocketLaunchIcon } from './icons/RocketLaunchIcon';
 import { ShieldCheckIcon } from './icons/ShieldCheckIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
+
 
 interface Agent {
   icon: React.ElementType;
@@ -34,7 +36,7 @@ const agents: Agent[] = [
 ];
 
 const AgentCard: React.FC<Agent> = ({ icon: Icon, title, description }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-400 hover:-translate-y-1 transition-all duration-300">
+  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 glow-on-hover h-full">
     <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
       <Icon className="w-6 h-6 text-cyan-400" />
     </div>
@@ -44,9 +46,11 @@ const AgentCard: React.FC<Agent> = ({ icon: Icon, title, description }) => (
 );
 
 const AIAgentsSection: React.FC = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
   return (
-    <section id="ai-agents" className="py-20 bg-slate-900/70">
-      <div className="container mx-auto px-6">
+    <section id="ai-agents" className="py-20 bg-slate-900/70" ref={ref}>
+      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Meet Your AI-Powered Development Team</h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto mt-4">
@@ -54,8 +58,10 @@ const AIAgentsSection: React.FC = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {agents.map((agent) => (
-            <AgentCard key={agent.title} {...agent} />
+          {agents.map((agent, index) => (
+             <div key={agent.title} style={{ transitionDelay: `${index * 100}ms`}} className={`section-fade-in ${isVisible ? 'is-visible' : ''}`}>
+                <AgentCard {...agent} />
+             </div>
           ))}
         </div>
       </div>

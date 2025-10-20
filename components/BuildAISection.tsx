@@ -3,8 +3,12 @@ import { ComputerDesktopIcon } from './icons/ComputerDesktopIcon';
 import { DevicePhoneMobileIcon } from './icons/DevicePhoneMobileIcon';
 import { PuzzlePieceIcon } from './icons/PuzzlePieceIcon';
 import { CheckCircleIcon } from './icons/CheckCircleIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
+
 
 const BuildAISection: React.FC = () => {
+    const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+    
     const steps = [
         {
             icon: ComputerDesktopIcon,
@@ -29,8 +33,8 @@ const BuildAISection: React.FC = () => {
     ];
 
     return (
-        <section id="build-ai" className="py-20 bg-slate-900">
-            <div className="container mx-auto px-6">
+        <section id="build-ai" className="py-20 bg-slate-900" ref={ref}>
+            <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-extrabold text-white">Build with an AI Engineer</h2>
                     <p className="text-lg text-slate-400 max-w-3xl mx-auto mt-4">
@@ -40,7 +44,9 @@ const BuildAISection: React.FC = () => {
 
                 <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
                     {steps.map((step, index) => (
-                        <div key={index} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex items-start gap-4 hover:border-cyan-400 transition-colors duration-300">
+                        <div key={index} 
+                             className={`bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex items-start gap-4 glow-on-hover section-fade-in ${isVisible ? 'is-visible' : ''}`}
+                             style={{ transitionDelay: `${index * 100}ms`}}>
                             <div className="flex-shrink-0 bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center">
                                 <step.icon className="w-6 h-6 text-cyan-400" />
                             </div>

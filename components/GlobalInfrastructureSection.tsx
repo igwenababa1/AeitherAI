@@ -3,6 +3,8 @@ import { GlobeAmericasIcon } from './icons/GlobeAmericasIcon';
 import { CloudArrowUpIcon } from './icons/CloudArrowUpIcon';
 import { CircleStackIcon } from './icons/CircleStackIcon';
 import { ShieldCheckIcon } from './icons/ShieldCheckIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
+
 
 interface InfraFeature {
   icon: React.ElementType;
@@ -34,14 +36,17 @@ const features: InfraFeature[] = [
 ];
 
 const GlobalInfrastructureSection: React.FC = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
   return (
     <section 
       id="global-infra" 
       className="relative py-20 bg-slate-900 overflow-hidden"
+      ref={ref}
     >
         <div className="absolute inset-0 bg-grid-slate-800/20 [mask-image:linear-gradient(to_bottom,white_20%,transparent_100%)]"></div>
         <img src="https://raw.githubusercontent.com/Gesell-it/world-map-repo/main/map.svg" alt="World map" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none" />
-      <div className="container mx-auto px-6 relative z-10">
+      <div className={`container mx-auto px-6 relative z-10 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Built for Global Scale</h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto mt-4">
@@ -49,8 +54,10 @@ const GlobalInfrastructureSection: React.FC = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature) => (
-            <div key={feature.title} className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:border-violet-400 hover:-translate-y-1 transition-all duration-300">
+          {features.map((feature, index) => (
+            <div key={feature.title} 
+                 className={`bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 glow-on-hover section-fade-in ${isVisible ? 'is-visible' : ''}`}
+                 style={{ transitionDelay: `${index * 100}ms`}}>
                 <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-violet-400" />
                 </div>

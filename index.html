@@ -9,6 +9,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+      .glow-on-hover {
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+      }
+      .glow-on-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 15px 0 rgba(45, 212, 191, 0.4), 0 0 5px 0 rgba(45, 212, 191, 0.3);
+      }
+      .section-fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .section-fade-in.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
     <script>
       tailwind.config = {
         theme: {

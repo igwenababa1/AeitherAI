@@ -1,4 +1,5 @@
 import React from 'react';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 const testimonials = [
   {
@@ -28,9 +29,10 @@ const testimonials = [
 ];
 
 const TestimonialsSection: React.FC = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="testimonials" className="py-20 bg-slate-900/70">
-      <div className="container mx-auto px-6">
+    <section id="testimonials" className="py-20 bg-slate-900/70" ref={ref}>
+      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">Impressions from Industry Leaders</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
@@ -39,7 +41,7 @@ const TestimonialsSection: React.FC = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-slate-800/50 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center">
+            <div key={index} className={`bg-slate-800/50 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center section-fade-in ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: `${index * 100}ms`}}>
               <img src={testimonial.imageUrl} alt={testimonial.author} className="w-24 h-24 rounded-full mb-4 border-2 border-cyan-400 object-cover" />
               <p className="text-slate-300 italic mb-6 flex-grow">"{testimonial.quote}"</p>
               <div>

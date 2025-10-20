@@ -3,6 +3,7 @@ import { PythonIcon } from './icons/PythonIcon';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { SparklesIcon } from './icons/SparklesIcon';
 import { CpuChipIcon } from './icons/CpuChipIcon';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface PythonFeature {
   icon: React.ElementType;
@@ -34,7 +35,7 @@ const features: PythonFeature[] = [
 ];
 
 const FeatureCard: React.FC<PythonFeature> = ({ icon: Icon, title, description }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-400 hover:-translate-y-1 transition-all duration-300">
+  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 glow-on-hover h-full">
     <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
       <Icon className="w-8 h-8 text-cyan-400" />
     </div>
@@ -44,9 +45,10 @@ const FeatureCard: React.FC<PythonFeature> = ({ icon: Icon, title, description }
 );
 
 const PythonAISection: React.FC = () => {
+    const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="python-ai" className="py-20 bg-slate-900/70">
-      <div className="container mx-auto px-6">
+    <section id="python-ai" className="py-20 bg-slate-900/70" ref={ref}>
+      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">The Ultimate Environment for <span className="text-cyan-400">Python &amp; AI</span></h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
@@ -54,8 +56,10 @@ const PythonAISection: React.FC = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature) => (
-            <FeatureCard key={feature.title} {...feature} />
+          {features.map((feature, index) => (
+             <div key={feature.title} style={{ transitionDelay: `${index * 100}ms`}} className={`section-fade-in ${isVisible ? 'is-visible' : ''}`}>
+                <FeatureCard {...feature} />
+             </div>
           ))}
         </div>
       </div>
