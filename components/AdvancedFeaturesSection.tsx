@@ -1,10 +1,11 @@
 
 
+
 import React from 'react';
 import { GlobeEuropeAfricaIcon } from './icons/GlobeEuropeAfricaIcon';
-import { CubeTransparentIcon } from './icons/CubeTransparentIcon';
-import { ChartBarSquareIcon } from './icons/ChartBarSquareIcon';
-import { LockClosedIcon } from './icons/LockClosedIcon';
+import { CubeIcon } from './icons/CubeIcon';
+import { CpuChipIcon } from './icons/CpuChipIcon';
+import { AtomIcon } from './icons/AtomIcon';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface AdvancedFeature {
@@ -20,19 +21,19 @@ const advancedFeatures: AdvancedFeature[] = [
     description: 'Deploy your applications to the edge, ensuring the lowest possible latency for your users, no matter where they are.',
   },
   {
-    icon: CubeTransparentIcon,
-    title: 'Serverless GPUs & AI',
-    description: 'Tap into on-demand GPU resources for intensive AI/ML workloads, model training, and inference without managing infrastructure.',
+    icon: CpuChipIcon,
+    title: 'On-Demand GPU Cloud',
+    description: 'Tap into serverless GPU resources for intensive AI/ML workloads, model training, and inference without managing infrastructure.',
   },
   {
-    icon: ChartBarSquareIcon,
-    title: 'Real-time Observability',
-    description: 'Get a unified view of your applications with integrated logging, metrics, and distributed tracing out of the box.',
+    icon: CubeIcon,
+    title: 'Managed Kubernetes Engine',
+    description: 'Deploy complex, containerized apps with our fully managed K8s, offering auto-scaling, self-healing, and zero-downtime deployments.',
   },
   {
-    icon: LockClosedIcon,
-    title: 'Automated Security',
-    description: 'Integrate automated security scanning for vulnerabilities, secrets, and dependencies directly into your CI/CD pipeline.',
+    icon: AtomIcon,
+    title: 'Quantum-Ready Compute',
+    description: 'Experiment with next-gen algorithms on our quantum simulation environments, preparing for the future of computing.',
   },
 ];
 
@@ -55,9 +56,9 @@ const AdvancedFeaturesSection: React.FC = () => {
     <section id="advanced" className="py-20 bg-dark-bg" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Advanced Capabilities for Modern Teams</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Enterprise-Grade Infrastructure</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
-            Go beyond the basics with enterprise-grade features designed for performance, scale, and security.
+            Go beyond the basics with features designed for performance, scale, and the future of computing.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

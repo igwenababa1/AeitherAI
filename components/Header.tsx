@@ -23,8 +23,9 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
   
   const navLinks = [
     { href: '#features', label: 'Features' },
-    { href: '#workflow', label: 'Workflow' },
-    { href: '#templates', label: 'Templates' },
+    { href: '#live-ide', label: 'Live IDE' },
+    { href: '#studio', label: 'AI Studio' },
+    { href: '#solutions', label: 'Solutions' },
     { href: '#pricing', label: 'Pricing' },
     { href: '#team', label: 'Team' },
   ];

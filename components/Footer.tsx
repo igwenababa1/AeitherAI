@@ -7,7 +7,7 @@ import { GitHubIcon } from './icons/GitHubIcon';
 const Footer: React.FC = () => {
   const footerLinks = [
     { name: 'Features', href: '#features' },
-    { name: 'Templates', href: '#templates' },
+    { name: 'Solutions', href: '#solutions' },
     { name: 'Pricing', href: '#pricing' },
     { name: 'Team', href: '#team' },
   ];

@@ -66,9 +66,9 @@ const FeatureSection: React.FC = () => {
     <section id="features" className="py-20 bg-dark-bg" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">An Unparalleled Feature Set</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">An Unparalleled Core Feature Set</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
-            We've bundled everything you need to build, collaborate, and scale, so you can focus on what matters most: your product.
+            We've bundled the essentials you need to build, collaborate, and scale, so you can focus on what matters most: your product.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

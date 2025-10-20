@@ -7,7 +7,7 @@ import BuildAISection from './components/BuildAISection';
 import WorkflowSection from './components/WorkflowSection';
 import AIAgentsSection from './components/AIAgentsSection';
 import PythonAISection from './components/PythonAISection';
-import TemplatesSection from './components/TemplatesSection';
+import SolutionsSection from './components/SolutionsSection';
 import AdvancedFeaturesSection from './components/AdvancedFeaturesSection';
 import TechSpecSection from './components/TechSpecSection';
 import IntegrationsSection from './components/IntegrationsSection';
@@ -20,6 +20,8 @@ import DocsSection from './components/DocsSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import AIPlaygroundSection from './components/AIPlaygroundSection';
+import AIStudioSection from './components/AIStudioSection';
+import ReplitSection from './components/ReplitSection';
 
 function App() {
   const [showPlayground, setShowPlayground] = useState(false);
@@ -46,11 +48,13 @@ function App() {
         <VideoHeroSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <VisionSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <FeatureSection />
+        <ReplitSection />
         <BuildAISection />
         <WorkflowSection />
+        <AIStudioSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <AIAgentsSection />
         <PythonAISection />
-        <TemplatesSection onTemplateSelect={handleTemplateSelect} />
+        <SolutionsSection onSolutionSelect={handleTemplateSelect} />
         <AdvancedFeaturesSection />
         <TechSpecSection />
         <IntegrationsSection />

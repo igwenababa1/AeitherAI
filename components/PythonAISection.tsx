@@ -1,7 +1,7 @@
 import React from 'react';
 import { PythonIcon } from './icons/PythonIcon';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
-import { SparklesIcon } from './icons/SparklesIcon';
+import { ChartBarIcon } from './icons/ChartBarIcon';
 import { CpuChipIcon } from './icons/CpuChipIcon';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
@@ -23,9 +23,9 @@ const features: PythonFeature[] = [
     description: 'Use our AI to generate and deploy projects with popular frameworks like Django, Flask, and FastAPI in minutes.',
   },
   {
-    icon: SparklesIcon,
-    title: 'Integrated AI/ML Libraries',
-    description: 'Access pre-installed libraries like PyTorch, TensorFlow, and scikit-learn for your machine learning projects.',
+    icon: ChartBarIcon,
+    title: 'Managed AI/ML Pipelines',
+    description: 'Automate the entire ML lifecycle, from data ingestion and model training to versioning and deployment via REST APIs.',
   },
   {
     icon: CpuChipIcon,
@@ -52,7 +52,7 @@ const PythonAISection: React.FC = () => {
     <section id="python-ai" className="py-20 bg-dark-bg/70 animated-grid-background" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">The Ultimate Environment for <span className="text-primary-blue">Python &amp; AI</span></h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">The Ultimate Platform for <span className="text-primary-blue">Python &amp; AI/ML Ops</span></h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             AetherWorks is optimized for Python developers, providing the tools and infrastructure to build, train, and deploy AI models and applications faster than ever.
           </p>

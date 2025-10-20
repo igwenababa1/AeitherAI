@@ -69,6 +69,35 @@
         position: relative;
         z-index: 1;
       }
+      .studio-panel {
+        background-image: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(13, 17, 23, 0.7));
+        backdrop-filter: blur(10px);
+        border: 1px solid #30363D;
+        border-radius: 0.75rem;
+      }
+      .line-connector {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw-and-glow 2s ease-out forwards;
+      }
+      @keyframes draw-and-glow {
+        70% {
+          stroke-dashoffset: 0;
+          filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+        }
+        100% {
+          stroke-dashoffset: 0;
+          filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.5));
+        }
+      }
+      @keyframes blink-cursor {
+        50% { border-color: transparent; }
+      }
+      .typing-cursor::after {
+        content: '|';
+        border-right: 0.1em solid white;
+        animation: blink-cursor 1.2s step-end infinite;
+      }
     </style>
     <script>
       tailwind.config = {

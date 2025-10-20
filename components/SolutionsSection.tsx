@@ -9,6 +9,7 @@ import { PythonIcon } from './icons/PythonIcon';
 import { GeminiIcon } from './icons/GeminiIcon';
 import { DjangoIcon } from './icons/DjangoIcon';
 import { PostgresIcon } from './icons/PostgresIcon';
+import { ChartBarIcon } from './icons/ChartBarIcon';
 
 interface Solution {
   icon: React.ElementType;
@@ -41,11 +42,11 @@ const solutions: Solution[] = [
     stack: [PythonIcon, DjangoIcon, PostgresIcon],
   },
   {
-    icon: ChatBubbleLeftRightIcon,
-    title: 'Customer Service Agent',
-    description: 'A simulated customer service agent that can handle common inquiries via a chat interface.',
-    prompt: 'Create an AI-powered customer service agent. Use Node.js and Socket.IO for real-time chat. The AI should be trained on a sample FAQ document to answer questions about a fictional product. Provide a simple React-based chat interface.',
-    stack: [ReactIcon, GeminiIcon],
+    icon: ChartBarIcon,
+    title: 'Sales Data Dashboard',
+    description: 'A Django dashboard to upload sales data via CSV and visualize key metrics with Pandas and Plotly.',
+    prompt: 'Build a data analysis dashboard for sales data. It should use Python with Pandas and Plotly for the backend, and Django for the web app. Users must be able to upload CSV files of sales records. The dashboard should show total revenue, monthly sales trends, and top-selling products.',
+    stack: [PythonIcon, DjangoIcon, PostgresIcon],
   },
 ];
 
@@ -89,7 +90,7 @@ const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onSolutionSelect })
     <section id="solutions" className="py-20 bg-dark-bg" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Solutions Marketplace</h2>
+          <h2 className="text-3xl md:text-4l font-extrabold text-white font-heading">Solutions Marketplace</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             Kickstart your project with a ready-to-deploy, enterprise-grade solution. Just one click and our AI engineer will handle the rest.
           </p>
