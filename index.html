@@ -7,15 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <style>
-      .glow-on-hover {
-        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+      .card-3d-container {
+        perspective: 1000px;
       }
-      .glow-on-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 0 15px 0 rgba(45, 212, 191, 0.4), 0 0 5px 0 rgba(45, 212, 191, 0.3);
+      .card-3d {
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease-in-out;
+      }
+      .card-3d-container:hover .card-3d {
+        transform: rotateX(5deg) rotateY(-5deg) scale(1.05);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(29, 78, 216, 0.5);
+      }
+      .glow-on-hover:hover { /* Simplified for 3D effect */
+        transform: translateY(-2px);
       }
       .section-fade-in {
         opacity: 0;
@@ -52,8 +58,8 @@
         right: 0;
         bottom: 0;
         background-image: 
-          linear-gradient(rgba(45, 212, 191, 0.07) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(45, 212, 191, 0.07) 1px, transparent 1px);
+          linear-gradient(rgba(29, 78, 216, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(29, 78, 216, 0.1) 1px, transparent 1px);
         background-size: 40px 40px;
         animation: move-grid 20s linear infinite;
         z-index: 0;
@@ -69,7 +75,15 @@
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Roboto', 'sans-serif'],
+              heading: ['Orbitron', 'sans-serif'],
+            },
+            colors: {
+              'dark-bg': '#0D1117',
+              'card-bg': '#161B22',
+              'primary-blue': '#38BDF8',
+              'accent-violet': '#8B5CF6',
+              'border-color': '#30363D',
             },
             animation: {
               'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
@@ -112,7 +126,7 @@
 }
 </script>
 </head>
-  <body class="bg-slate-900 text-slate-300 font-sans">
+  <body class="bg-dark-bg text-slate-300 font-sans">
     <div id="root"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script type="module" src="/index.tsx"></script>

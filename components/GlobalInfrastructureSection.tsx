@@ -42,13 +42,13 @@ const GlobalInfrastructureSection: React.FC = () => {
   return (
     <section 
       id="global-infra" 
-      className="relative py-20 bg-slate-900 overflow-hidden"
+      className="relative py-20 bg-dark-bg overflow-hidden"
       ref={ref}
     >
       <Globe />
       <div className={`container mx-auto px-6 relative z-10 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Built for Global Scale</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Built for Global Scale</h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto mt-4">
             Our infrastructure is designed for high performance and reliability, no matter where your users are.
           </p>
@@ -56,13 +56,15 @@ const GlobalInfrastructureSection: React.FC = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div key={feature.title} 
-                 className={`bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 glow-on-hover section-fade-in ${isVisible ? 'is-visible' : ''}`}
+                 className={`card-3d-container section-fade-in ${isVisible ? 'is-visible' : ''}`}
                  style={{ transitionDelay: `${index * 100}ms`}}>
-                <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-violet-400" />
+                <div className="bg-card-bg/50 backdrop-blur-sm p-6 rounded-xl border border-border-color card-3d h-full">
+                    <div className="bg-border-color rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-accent-violet" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2 font-heading">{feature.title}</h3>
+                    <p className="text-slate-400">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                <p className="text-slate-400">{feature.description}</p>
             </div>
           ))}
         </div>

@@ -22,7 +22,7 @@ const integrations: Integration[] = [
 ];
 
 const IntegrationCard: React.FC<{ icon: React.ElementType }> = ({ icon: Icon }) => (
-    <div className="aspect-square bg-slate-800/50 p-6 flex items-center justify-center rounded-xl border border-slate-700 group-hover:border-cyan-400 transition-all duration-300">
+    <div className="aspect-square bg-card-bg p-6 flex items-center justify-center rounded-xl border border-border-color group-hover:border-primary-blue transition-all duration-300 card-3d">
       <Icon className="w-16 h-16 text-slate-400 transition-colors group-hover:text-white" />
     </div>
 );
@@ -30,17 +30,17 @@ const IntegrationCard: React.FC<{ icon: React.ElementType }> = ({ icon: Icon }) 
 
 const IntegrationsSection: React.FC = () => {
   return (
-    <section id="integrations" className="py-20 bg-slate-900/70">
+    <section id="integrations" className="py-20 bg-dark-bg/70">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">A Connected Ecosystem</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">A Connected Ecosystem</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             AetherWorks integrates seamlessly with the tools you already use and love.
           </p>
         </div>
         <div className="max-w-4xl mx-auto grid grid-cols-3 md:grid-cols-6 gap-8">
           {integrations.map((integration) => (
-             <a key={integration.name} href={integration.href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center group glow-on-hover rounded-xl">
+             <a key={integration.name} href={integration.href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center group rounded-xl card-3d-container">
                 <IntegrationCard icon={integration.icon} />
                 <p className="mt-3 font-semibold text-slate-400 group-hover:text-white transition-colors">{integration.name}</p>
              </a>

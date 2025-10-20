@@ -33,10 +33,10 @@ const BuildAISection: React.FC = () => {
     ];
 
     return (
-        <section id="build-ai" className="py-20 bg-slate-900" ref={ref}>
+        <section id="build-ai" className="py-20 bg-dark-bg" ref={ref}>
             <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white">Build with an AI Engineer</h2>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Build with an AI Engineer</h2>
                     <p className="text-lg text-slate-400 max-w-3xl mx-auto mt-4">
                         Go from a simple prompt to a fully deployed application. Our AI agent acts as your collaborative partner, handling the technical details so you can focus on the product.
                     </p>
@@ -45,14 +45,16 @@ const BuildAISection: React.FC = () => {
                 <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
                     {steps.map((step, index) => (
                         <div key={index} 
-                             className={`bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex items-start gap-4 glow-on-hover section-fade-in ${isVisible ? 'is-visible' : ''}`}
+                             className={`card-3d-container section-fade-in ${isVisible ? 'is-visible' : ''}`}
                              style={{ transitionDelay: `${index * 100}ms`}}>
-                            <div className="flex-shrink-0 bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center">
-                                <step.icon className="w-6 h-6 text-cyan-400" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                                <p className="text-slate-400">{step.description}</p>
+                            <div className="bg-card-bg p-6 rounded-xl border border-border-color flex items-start gap-4 card-3d h-full">
+                                <div className="flex-shrink-0 bg-border-color rounded-lg w-12 h-12 flex items-center justify-center">
+                                    <step.icon className="w-6 h-6 text-primary-blue" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-white mb-2 font-heading">{step.title}</h3>
+                                    <p className="text-slate-400">{step.description}</p>
+                                </div>
                             </div>
                         </div>
                     ))}

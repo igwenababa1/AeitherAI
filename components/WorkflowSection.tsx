@@ -26,27 +26,29 @@ const WorkflowSection: React.FC = () => {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
     return (
-        <section id="workflow" className="py-20 bg-slate-900" ref={ref}>
+        <section id="workflow" className="py-20 bg-dark-bg" ref={ref}>
             <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white">The MVP Workflow, Simplified</h2>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">The MVP Workflow, Simplified</h2>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
                         From idea to a published showcase, see how AetherWorks streamlines development.
                     </p>
                 </div>
                 <div className="relative max-w-2xl mx-auto">
-                    <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-700 hidden md:block"></div>
+                    <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border-color hidden md:block"></div>
                     {steps.map((step, index) => (
                         <div key={index} className="md:flex items-center mb-12 relative">
                             <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left md:ml-auto'}`}>
-                                <div className="p-6 bg-slate-800/50 border border-slate-700 rounded-xl glow-on-hover">
-                                    <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                                    <p className="text-slate-400">{step.description}</p>
+                                <div className="card-3d-container">
+                                    <div className="p-6 bg-card-bg border border-border-color rounded-xl card-3d">
+                                        <h3 className="text-xl font-bold font-heading text-white mb-2">{step.title}</h3>
+                                        <p className="text-slate-400">{step.description}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="absolute left-1/2 -translate-x-1/2 bg-slate-900 p-1 hidden md:block">
-                                <div className="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center border-2 border-cyan-400">
-                                    <step.icon className="w-6 h-6 text-cyan-400" />
+                            <div className="absolute left-1/2 -translate-x-1/2 bg-dark-bg p-1 hidden md:block">
+                                <div className="w-12 h-12 rounded-full bg-border-color flex items-center justify-center border-2 border-primary-blue">
+                                    <step.icon className="w-6 h-6 text-primary-blue" />
                                 </div>
                             </div>
                         </div>

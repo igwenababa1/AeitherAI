@@ -35,22 +35,24 @@ const features: PythonFeature[] = [
 ];
 
 const FeatureCard: React.FC<PythonFeature> = ({ icon: Icon, title, description }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 glow-on-hover h-full">
-    <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-      <Icon className="w-8 h-8 text-cyan-400" />
+  <div className="card-3d-container h-full">
+    <div className="bg-card-bg p-6 rounded-xl border border-border-color card-3d h-full">
+      <div className="bg-border-color rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+        <Icon className="w-8 h-8 text-primary-blue" />
+      </div>
+      <h3 className="text-xl font-bold text-white mb-2 font-heading">{title}</h3>
+      <p className="text-slate-400">{description}</p>
     </div>
-    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-    <p className="text-slate-400">{description}</p>
   </div>
 );
 
 const PythonAISection: React.FC = () => {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="python-ai" className="py-20 bg-slate-900/70 animated-grid-background" ref={ref}>
+    <section id="python-ai" className="py-20 bg-dark-bg/70 animated-grid-background" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">The Ultimate Environment for <span className="text-cyan-400">Python &amp; AI</span></h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">The Ultimate Environment for <span className="text-primary-blue">Python &amp; AI</span></h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             AetherWorks is optimized for Python developers, providing the tools and infrastructure to build, train, and deploy AI models and applications faster than ever.
           </p>

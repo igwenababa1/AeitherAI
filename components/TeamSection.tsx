@@ -55,19 +55,21 @@ const teamMembers: TeamMember[] = [
 ];
 
 const TeamMemberCard: React.FC<TeamMember> = ({ name, role, imageUrl, socials }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 text-center glow-on-hover">
-    <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-2 border-slate-700 group-hover:border-cyan-400 transition-colors">
-      <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
-    </div>
-    <h3 className="text-xl font-bold text-white mb-1">{name}</h3>
-    <p className="text-cyan-400 mb-4">{role}</p>
-    <div className="flex justify-center gap-4">
-      <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-        <LinkedInIcon className="w-6 h-6" />
-      </a>
-      <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-        <TwitterIcon className="w-6 h-6" />
-      </a>
+  <div className="card-3d-container group">
+    <div className="bg-card-bg p-6 rounded-xl border border-border-color text-center card-3d">
+      <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-2 border-border-color group-hover:border-primary-blue transition-colors">
+        <img src={imageUrl} alt={name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+      </div>
+      <h3 className="text-xl font-bold text-white mb-1 font-heading">{name}</h3>
+      <p className="text-primary-blue mb-4">{role}</p>
+      <div className="flex justify-center gap-4">
+        <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+          <LinkedInIcon className="w-6 h-6" />
+        </a>
+        <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+          <TwitterIcon className="w-6 h-6" />
+        </a>
+      </div>
     </div>
   </div>
 );
@@ -76,10 +78,10 @@ const TeamSection: React.FC = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section id="team" className="py-20 bg-slate-900" ref={ref}>
+    <section id="team" className="py-20 bg-dark-bg" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Meet the Innovators</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Meet the Innovators</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             The passionate minds behind AetherWorks, dedicated to revolutionizing software development.
           </p>

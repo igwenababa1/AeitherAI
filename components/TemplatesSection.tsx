@@ -60,22 +60,24 @@ interface TemplateCardProps extends Template {
 }
 
 const TemplateCard: React.FC<TemplateCardProps> = ({ icon: Icon, title, description, prompt, onSelect }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex flex-col glow-on-hover">
-    <div className="flex items-start gap-4">
-        <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex-shrink-0 flex items-center justify-center">
-            <Icon className="w-6 h-6 text-cyan-400" />
-        </div>
-        <div>
-            <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-            <p className="text-slate-400 text-sm flex-grow">{description}</p>
-        </div>
+  <div className="card-3d-container h-full">
+    <div className="bg-card-bg p-6 rounded-xl border border-border-color flex flex-col card-3d h-full">
+      <div className="flex items-start gap-4">
+          <div className="bg-border-color rounded-lg w-12 h-12 flex-shrink-0 flex items-center justify-center">
+              <Icon className="w-6 h-6 text-primary-blue" />
+          </div>
+          <div>
+              <h3 className="text-xl font-bold text-white mb-2 font-heading">{title}</h3>
+              <p className="text-slate-400 text-sm flex-grow">{description}</p>
+          </div>
+      </div>
+      <button
+        onClick={() => onSelect(prompt)}
+        className="mt-6 bg-border-color hover:bg-primary-blue text-slate-300 hover:text-dark-bg font-bold py-2 px-4 rounded-lg transition-colors w-full"
+      >
+        Use Template
+      </button>
     </div>
-    <button
-      onClick={() => onSelect(prompt)}
-      className="mt-6 bg-slate-700 hover:bg-cyan-500 text-slate-300 hover:text-white font-bold py-2 px-4 rounded-lg transition-colors w-full"
-    >
-      Use Template
-    </button>
   </div>
 );
 
@@ -86,10 +88,10 @@ interface TemplatesSectionProps {
 const TemplatesSection: React.FC<TemplatesSectionProps> = ({ onTemplateSelect }) => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   return (
-    <section id="templates" className="py-20 bg-slate-900" ref={ref}>
+    <section id="templates" className="py-20 bg-dark-bg" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Start Building Immediately</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Start Building Immediately</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             Kickstart your project with one of our pre-built templates. Just one click and our AI engineer will handle the rest.
           </p>

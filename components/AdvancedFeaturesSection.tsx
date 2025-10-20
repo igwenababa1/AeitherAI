@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { GlobeEuropeAfricaIcon } from './icons/GlobeEuropeAfricaIcon';
 import { CubeTransparentIcon } from './icons/CubeTransparentIcon';
@@ -36,12 +37,14 @@ const advancedFeatures: AdvancedFeature[] = [
 ];
 
 const AdvancedFeatureCard: React.FC<AdvancedFeature> = ({ icon: Icon, title, description }) => (
-  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 glow-on-hover">
-    <div className="bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-      <Icon className="w-6 h-6 text-violet-400" />
+  <div className="card-3d-container h-full">
+    <div className="bg-card-bg p-6 rounded-xl border border-border-color card-3d h-full">
+      <div className="bg-border-color rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+        <Icon className="w-6 h-6 text-accent-violet" />
+      </div>
+      <h3 className="text-xl font-bold text-white font-heading mb-2">{title}</h3>
+      <p className="text-slate-400">{description}</p>
     </div>
-    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-    <p className="text-slate-400">{description}</p>
   </div>
 );
 
@@ -49,10 +52,10 @@ const AdvancedFeaturesSection: React.FC = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section id="advanced" className="py-20 bg-slate-900" ref={ref}>
+    <section id="advanced" className="py-20 bg-dark-bg" ref={ref}>
       <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Advanced Capabilities for Modern Teams</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">Advanced Capabilities for Modern Teams</h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
             Go beyond the basics with enterprise-grade features designed for performance, scale, and security.
           </p>
