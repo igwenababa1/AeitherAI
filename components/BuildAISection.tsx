@@ -29,7 +29,7 @@ const BuildAISection: React.FC = () => {
     ];
 
     return (
-        <section id="build-ai" className="py-20 bg-slate-900/70">
+        <section id="build-ai" className="py-20 bg-slate-900">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-extrabold text-white">Build with an AI Engineer</h2>
@@ -40,7 +40,7 @@ const BuildAISection: React.FC = () => {
 
                 <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
                     {steps.map((step, index) => (
-                        <div key={index} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex items-start gap-4">
+                        <div key={index} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex items-start gap-4 hover:border-cyan-400 transition-colors duration-300">
                             <div className="flex-shrink-0 bg-slate-700/50 rounded-lg w-12 h-12 flex items-center justify-center">
                                 <step.icon className="w-6 h-6 text-cyan-400" />
                             </div>

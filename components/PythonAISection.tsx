@@ -45,7 +45,7 @@ const FeatureCard: React.FC<PythonFeature> = ({ icon: Icon, title, description }
 
 const PythonAISection: React.FC = () => {
   return (
-    <section id="python-ai" className="py-20 bg-slate-900">
+    <section id="python-ai" className="py-20 bg-slate-900/70">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">The Ultimate Environment for <span className="text-cyan-400">Python &amp; AI</span></h2>

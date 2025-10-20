@@ -2,51 +2,53 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import FeatureSection from './components/FeatureSection';
-import TechSpecSection from './components/TechSpecSection';
-import WorkflowSection from './components/WorkflowSection';
-import PricingSection from './components/PricingSection';
-import DocsSection from './components/DocsSection';
-import AboutSection from './components/AboutSection';
-import AdvancedFeaturesSection from './components/AdvancedFeaturesSection';
-import AIPlaygroundSection from './components/AIPlaygroundSection';
-import IntegrationsSection from './components/IntegrationsSection';
-import BuildAISection from './components/BuildAISection';
-import PythonAISection from './components/PythonAISection';
 import TemplatesSection from './components/TemplatesSection';
+import AIPlaygroundSection from './components/AIPlaygroundSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import TeamSection from './components/TeamSection';
+import Footer from './components/Footer';
+import BuildAISection from './components/BuildAISection';
+import PythonAISection from './components/PythonAISection';
+import IntegrationsSection from './components/IntegrationsSection';
+import AIAgentsSection from './components/AIAgentsSection';
+import GlobalInfrastructureSection from './components/GlobalInfrastructureSection';
+
 
 function App() {
   const [showPlayground, setShowPlayground] = useState(false);
+  const [selectedTemplatePrompt, setSelectedTemplatePrompt] = useState('');
 
-  const handleLaunchPlayground = () => {
+  const handleLaunchPlayground = (prompt: string = '') => {
+    setSelectedTemplatePrompt(prompt);
     setShowPlayground(true);
   };
 
   const handleClosePlayground = () => {
     setShowPlayground(false);
+    setSelectedTemplatePrompt(''); // Clear prompt on close
+  };
+  
+  const handleTemplateSelect = (prompt: string) => {
+    handleLaunchPlayground(prompt);
   };
 
   return (
     <div className="bg-slate-900 text-slate-300">
-      <Header />
+      <Header onLaunchPlayground={() => handleLaunchPlayground()} />
       <main>
-        <Hero onLaunchPlayground={handleLaunchPlayground} />
+        <Hero onLaunchPlayground={() => handleLaunchPlayground()} />
         <FeatureSection />
+        <AIAgentsSection />
         <BuildAISection />
+        <TemplatesSection onTemplateSelect={handleTemplateSelect} />
         <PythonAISection />
-        <TemplatesSection />
         <IntegrationsSection />
-        <WorkflowSection />
-        <AdvancedFeaturesSection />
-        <TechSpecSection />
-        <PricingSection />
+        <GlobalInfrastructureSection />
         <TestimonialsSection />
         <TeamSection />
-        <AboutSection />
-        <DocsSection />
       </main>
-      {showPlayground && <AIPlaygroundSection onClose={handleClosePlayground} />}
+      <Footer />
+      {showPlayground && <AIPlaygroundSection onClose={handleClosePlayground} initialPrompt={selectedTemplatePrompt} />}
     </div>
   );
 }

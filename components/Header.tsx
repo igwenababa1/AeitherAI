@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LayersIcon } from './icons/LayersIcon';
 
-const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface HeaderProps {
+  onLaunchPlayground: () => void;
+}
 
-  const navLinks = [
-    { href: '#features', label: 'Features' },
-    { href: '#workflow', label: 'Workflow' },
-    { href: '#pricing', label: 'Pricing' },
-    { href: '#team', label: 'Team' },
-    { href: '#docs', label: 'Docs' },
-  ];
-
+const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
   return (
     <header className="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-lg border-b border-slate-800">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -20,41 +14,25 @@ const Header: React.FC = () => {
           <span>AetherWorks</span>
         </a>
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-slate-300 hover:text-cyan-400 transition-colors">
-              {link.label}
-            </a>
-          ))}
-        </nav>
-        <div className="hidden md:flex items-center gap-4">
-          <a href="#" className="text-slate-300 hover:text-white">Log In</a>
-          <a href="#" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
-            Sign Up
+          <a href="#features" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            Features
           </a>
-        </div>
-        <div className="md:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path>
-            </svg>
+          <a href="#templates" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            Templates
+          </a>
+          <a href="#testimonials" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            Testimonials
+          </a>
+           <a href="#team" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            Team
+          </a>
+        </nav>
+        <div className="flex items-center gap-4">
+          <button onClick={onLaunchPlayground} className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+            Get Started
           </button>
         </div>
       </div>
-      {isMenuOpen && (
-        <div className="md:hidden bg-slate-900">
-          <nav className="flex flex-col items-center gap-4 py-4">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-slate-300 hover:text-cyan-400 transition-colors" onClick={() => setIsMenuOpen(false)}>
-                {link.label}
-              </a>
-            ))}
-            <a href="#" className="text-slate-300 hover:text-white" onClick={() => setIsMenuOpen(false)}>Log In</a>
-            <a href="#" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition-colors" onClick={() => setIsMenuOpen(false)}>
-              Sign Up
-            </a>
-          </nav>
-        </div>
-      )}
     </header>
   );
 };
