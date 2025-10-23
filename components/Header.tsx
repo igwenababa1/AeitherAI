@@ -1,13 +1,18 @@
+
 import React, { useState, useEffect } from 'react';
 import { LayersIcon } from './icons/LayersIcon';
 import { Bars3Icon } from './icons/Bars3Icon';
 import { XMarkIcon } from './icons/XMarkIcon';
+import { SunIcon } from './icons/SunIcon';
+import { MoonIcon } from './icons/MoonIcon';
 
 interface HeaderProps {
   onLaunchPlayground: () => void;
+  currentTheme: string;
+  onThemeChange: (theme: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
+const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThemeChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const targetId = href.substring(1); // remove the '#'
+    const targetId = href.substring(1);
     if (href === '#') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -48,6 +53,11 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
     onLaunchPlayground();
     setIsMenuOpen(false);
   }
+  
+  const handleThemeToggle = () => {
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    onThemeChange(newTheme);
+  };
 
   return (
     <>
@@ -65,6 +75,17 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground }) => {
             ))}
           </nav>
           <div className="flex items-center gap-4">
+            <button 
+              onClick={handleThemeToggle}
+              className="p-2 text-slate-300 hover:text-white rounded-md transition-colors"
+              aria-label={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {currentTheme === 'dark' ? (
+                <SunIcon className="w-6 h-6" />
+              ) : (
+                <MoonIcon className="w-6 h-6" />
+              )}
+            </button>
             <button onClick={onLaunchPlayground} className="hidden md:block bg-gradient-to-r from-primary-blue to-blue-600 hover:from-blue-400 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-transform hover:scale-105">
               Get Started
             </button>

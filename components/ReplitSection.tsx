@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import { FolderIcon } from './icons/FolderIcon';
@@ -44,6 +45,8 @@ print("Linear regression complete.")`;
     ];
 
     useEffect(() => {
+        // FIX: Changed types from `NodeJS.Timeout` to `number` as this code runs in a browser,
+        // where `setInterval` returns a number, and Node.js types are not available.
         let codeTimeout: number;
         let logsInterval: number;
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { UsersIcon } from './icons/UsersIcon';
@@ -64,16 +63,16 @@ const FeatureSection: React.FC = () => {
 
   return (
     <section id="features" className="py-20 bg-dark-bg" ref={ref}>
-      <div className={`container mx-auto px-6 section-fade-in ${isVisible ? 'is-visible' : ''}`}>
+      <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">An Unparalleled Core Feature Set</h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mt-4">
+          <h2 className={`text-3xl md:text-4xl font-extrabold text-white font-heading section-fade-in ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: '0ms' }}>An Unparalleled Core Feature Set</h2>
+          <p className={`text-lg text-slate-400 max-w-2xl mx-auto mt-4 section-fade-in ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: '100ms' }}>
             We've bundled the essentials you need to build, collaborate, and scale, so you can focus on what matters most: your product.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div key={feature.title} style={{ transitionDelay: `${index * 100}ms`}} className={`section-fade-in ${isVisible ? 'is-visible' : ''}`}>
+            <div key={feature.title} style={{ transitionDelay: `${200 + index * 100}ms`}} className={`section-fade-in ${isVisible ? 'is-visible' : ''}`}>
                <FeatureCard {...feature} />
             </div>
           ))}

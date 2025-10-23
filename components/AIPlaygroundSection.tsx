@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleGenAI, GenerateContentResponse } from '@google/genai';
 import { XMarkIcon } from './icons/XMarkIcon';
 import { SparklesIcon } from './icons/SparklesIcon';
@@ -24,6 +24,8 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
   const [topP, setTopP] = useState(0.9);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const systemPromptTextareaRef = useRef<HTMLTextAreaElement>(null);
+
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -39,7 +41,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
     }
   }, [initialPrompt]);
 
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
     if (!prompt.trim() || isLoading) return;
 
     setIsLoading(true);
@@ -69,24 +71,58 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [prompt, isLoading, model, systemPrompt, temperature, topP]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleGenerate();
-    }
-  };
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            onClose();
+        }
+
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            handleGenerate();
+        }
+
+        if ((e.ctrlKey || e.metaKey) && e.key === '1') {
+            e.preventDefault();
+            textareaRef.current?.focus();
+        }
+
+        if ((e.ctrlKey || e.metaKey) && e.key === '2') {
+            e.preventDefault();
+            systemPromptTextareaRef.current?.focus();
+        }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => {
+        window.removeEventListener('keydown', handleGlobalKeyDown);
+    };
+  }, [onClose, handleGenerate]);
+
 
   return (
     <div className="fixed inset-0 bg-dark-bg/80 backdrop-blur-lg z-50 flex items-center justify-center p-4 animate-fade-in">
       <div className="bg-card-bg border border-border-color rounded-2xl w-full max-w-6xl h-[90vh] flex flex-col shadow-2xl shadow-primary-blue/10">
         <header className="flex items-center justify-between p-4 border-b border-border-color flex-shrink-0">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <GoogleAILogo className="w-8 h-8" />
             <div>
                 <h2 className="text-xl font-bold text-white font-heading">Advanced AI Studio</h2>
                 <p className="text-xs text-slate-400">Powered by Google Gemini</p>
+            </div>
+            <div className="group relative hidden md:block">
+                <InformationCircleIcon className="w-5 h-5 text-slate-400 cursor-help" />
+                <div className="absolute top-full left-0 mt-2 w-64 bg-dark-bg border border-border-color text-slate-300 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
+                    <p className="font-bold text-white mb-2">Keyboard Shortcuts</p>
+                    <ul className="space-y-1.5">
+                        <li className="flex justify-between items-center"><span>Generate</span> <kbd className="font-sans bg-border-color px-1.5 py-0.5 rounded text-slate-300 text-[10px]">Cmd/Ctrl + Enter</kbd></li>
+                        <li className="flex justify-between items-center"><span>Close</span> <kbd className="font-sans bg-border-color px-1.5 py-0.5 rounded text-slate-300 text-[10px]">Esc</kbd></li>
+                        <li className="flex justify-between items-center"><span>Focus User Prompt</span> <kbd className="font-sans bg-border-color px-1.5 py-0.5 rounded text-slate-300 text-[10px]">Cmd/Ctrl + 1</kbd></li>
+                        <li className="flex justify-between items-center"><span>Focus System Prompt</span> <kbd className="font-sans bg-border-color px-1.5 py-0.5 rounded text-slate-300 text-[10px]">Cmd/Ctrl + 2</kbd></li>
+                    </ul>
+                </div>
             </div>
           </div>
           <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-md transition-colors">
@@ -102,7 +138,6 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
                   ref={textareaRef}
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  onKeyDown={handleKeyDown}
                   placeholder="Enter your prompt here..."
                   className="w-full h-full bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none focus:outline-none focus:ring-2 focus:ring-primary-blue flex-grow"
                 />
@@ -110,6 +145,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
              <div className="flex-shrink-0 mt-4">
                  <h3 className="text-lg font-semibold text-slate-200 mb-2">System Prompt</h3>
                 <textarea
+                  ref={systemPromptTextareaRef}
                   value={systemPrompt}
                   onChange={(e) => setSystemPrompt(e.target.value)}
                   placeholder="e.g., You are a Python expert who writes elegant, efficient code."
