@@ -65,11 +65,11 @@ const TestimonialsSection: React.FC = () => {
             Hear what influential figures have to say about building with AetherWorks.
           </p>
         </div>
-        <div className="max-w-3xl mx-auto relative">
+        <div className="max-w-3xl mx-auto relative" role="region" aria-roledescription="carousel" aria-label="User testimonials">
             <div className="overflow-hidden relative h-[420px]">
                 <div className="flex transition-transform ease-in-out duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                    {testimonials.map((testimonial) => (
-                        <div key={testimonial.author} className="min-w-full h-full flex-shrink-0 px-2 card-3d-container">
+                    {testimonials.map((testimonial, index) => (
+                        <div key={testimonial.author} className="min-w-full h-full flex-shrink-0 px-2 card-3d-container" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${testimonials.length}`} aria-hidden={currentIndex !== index}>
                              <div className="bg-card-bg p-8 rounded-xl border border-border-color flex flex-col items-center text-center h-full card-3d">
                                 <img src={testimonial.imageUrl} alt={testimonial.author} className="w-24 h-24 rounded-full mb-4 border-2 border-primary-blue object-cover" />
                                 <p className="text-slate-300 italic mb-6 flex-grow">"{testimonial.quote}"</p>
@@ -84,17 +84,17 @@ const TestimonialsSection: React.FC = () => {
             </div>
 
             {/* Left Arrow */}
-            <button onClick={prevSlide} className="absolute top-1/2 -translate-y-1/2 left-[-40px] p-2 rounded-full bg-card-bg/50 hover:bg-card-bg text-white transition-colors hidden md:block">
+            <button onClick={prevSlide} className="absolute top-1/2 -translate-y-1/2 left-[-40px] p-2 rounded-full bg-card-bg/50 hover:bg-card-bg text-white transition-colors hidden md:block" aria-label="Previous testimonial">
                 <ChevronLeftIcon className="w-6 h-6" />
             </button>
             {/* Right Arrow */}
-            <button onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 right-[-40px] p-2 rounded-full bg-card-bg/50 hover:bg-card-bg text-white transition-colors hidden md:block">
+            <button onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 right-[-40px] p-2 rounded-full bg-card-bg/50 hover:bg-card-bg text-white transition-colors hidden md:block" aria-label="Next testimonial">
                 <ChevronRightIcon className="w-6 h-6" />
             </button>
 
             <div className="flex justify-center mt-6">
                 {testimonials.map((_, slideIndex) => (
-                    <button key={slideIndex} onClick={() => goToSlide(slideIndex)} className={`w-3 h-3 rounded-full mx-1.5 transition-all ${currentIndex === slideIndex ? 'bg-primary-blue' : 'bg-border-color hover:bg-slate-500'}`}></button>
+                    <button key={slideIndex} onClick={() => goToSlide(slideIndex)} className={`w-3 h-3 rounded-full mx-1.5 transition-all ${currentIndex === slideIndex ? 'bg-primary-blue' : 'bg-border-color hover:bg-slate-500'}`} aria-label={`Go to testimonial ${slideIndex + 1}`}></button>
                 ))}
             </div>
 

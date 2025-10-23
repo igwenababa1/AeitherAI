@@ -243,6 +243,43 @@
         .animate-pulse-cursor {
             animation: pulse-cursor 2s infinite ease-in-out;
         }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        .skip-link {
+            position: absolute;
+            top: -4rem; /* Hides it off-screen */
+            left: 1rem;
+            background: var(--primary-blue);
+            color: var(--dark-bg);
+            padding: 0.5rem 1rem;
+            z-index: 100;
+            transition: top 0.3s ease-in-out;
+        }
+        .skip-link:focus {
+            top: 1rem;
+        }
+        
+        /* Accessibility: Remove default focus outline ONLY when a custom one is applied with :focus-visible */
+        *:focus {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--primary-blue);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
 
         /* Playground Transition Styles */
         .playground-transition-container {
@@ -308,7 +345,7 @@
             border-bottom-right-radius: 4px;
         }
         .ai-message {
-            background-color: var(--dark-bg);
+            background-color: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--border-color);
             border-bottom-left-radius: 4px;
@@ -335,6 +372,53 @@
         .shard-6 { --shard-initial-transform: translate(-50%, -50%) translate(200%, 0) rotateY(90deg) translateZ(-600px) scale(0.6); animation-delay: 0.25s; }
         .shard-7 { --shard-initial-transform: translate(-50%, -50%) translate(0, 200%) rotateX(-90deg) translateZ(-600px) scale(0.6); animation-delay: 0.3s; }
         .shard-8 { --shard-initial-transform: translate(-50%, -50%) translate(-200%, 0) rotateY(-90deg) translateZ(-600px) scale(0.6); animation-delay: 0.35s; }
+
+        /* Animated Button Style */
+        .btn-animated {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem; /* 12px */
+            padding: 0.75rem 2rem; /* 12px 32px */
+            border: 2px solid var(--primary-blue);
+            border-radius: 0.5rem; /* 8px */
+            background-color: transparent;
+            color: var(--primary-blue);
+            font-weight: 700;
+            overflow: hidden;
+            text-decoration: none;
+            transition: color 0.4s ease-in-out;
+            z-index: 1;
+        }
+
+        .btn-animated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-blue);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: -1;
+        }
+        
+        .btn-animated:hover {
+            color: var(--dark-bg);
+        }
+
+        .btn-animated:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .btn-animated > * {
+            position: relative;
+            z-index: 2;
+            transition: color 0.4s ease-in-out;
+        }
 
     </style>
 </head>

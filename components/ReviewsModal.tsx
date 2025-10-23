@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import StarRating from './StarRating';
 import { XMarkIcon } from './icons/XMarkIcon';
 import { ChatBubbleOvalLeftEllipsisIcon } from './icons/ChatBubbleOvalLeftEllipsisIcon';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface Review {
   id: number;
@@ -41,6 +42,9 @@ interface ReviewsModalProps {
 }
 
 const ReviewsModal: React.FC<ReviewsModalProps> = ({ onClose }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+    useFocusTrap(modalRef, true);
+
     useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -49,14 +53,14 @@ const ReviewsModal: React.FC<ReviewsModalProps> = ({ onClose }) => {
     }, []);
 
   return (
-    <div className="fixed inset-0 bg-dark-bg/80 backdrop-blur-lg z-50 flex items-center justify-center p-4 animate-fade-in">
+    <div ref={modalRef} className="fixed inset-0 bg-dark-bg/80 backdrop-blur-lg z-50 flex items-center justify-center p-4 animate-fade-in" role="dialog" aria-modal="true" aria-labelledby="reviews-title">
       <div className="bg-card-bg border border-border-color rounded-2xl w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary-blue/10">
         <header className="flex items-center justify-between p-4 border-b border-border-color flex-shrink-0">
           <div className="flex items-center gap-3">
             <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6 text-primary-blue" />
-            <h2 className="text-xl font-bold text-white font-heading">User Reviews</h2>
+            <h2 id="reviews-title" className="text-xl font-bold text-white font-heading">User Reviews</h2>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-md transition-colors">
+          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-md transition-colors" aria-label="Close reviews modal">
             <XMarkIcon className="w-6 h-6" />
           </button>
         </header>

@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/Hero';
@@ -63,12 +64,13 @@ function App() {
 
   return (
     <div className="bg-dark-bg text-slate-300">
+      <a href="#main-content" className="skip-link font-semibold rounded-md">Skip to main content</a>
       <Header 
         onLaunchPlayground={() => handleLaunchPlayground()} 
         currentTheme={theme}
         onThemeChange={handleThemeChange}
       />
-      <main>
+      <main id="main-content">
         <HeroSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <VisionSection onLaunchPlayground={() => handleLaunchPlayground()} />
         <FeatureSection />

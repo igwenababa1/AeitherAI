@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { CpuChipIcon } from './icons/CpuChipIcon';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
@@ -30,9 +31,9 @@ const VisionSection: React.FC<VisionSectionProps> = ({ onLaunchPlayground }) => 
                 </p>
                 <button
                     onClick={onLaunchPlayground}
-                    className="bg-transparent border-2 border-primary-blue text-primary-blue font-bold py-3 px-8 rounded-lg transition-all hover:scale-105 hover:bg-primary-blue hover:text-dark-bg"
+                    className="btn-animated"
                 >
-                    See It In Action
+                    <span>See It In Action</span>
                 </button>
             </div>
         </section>

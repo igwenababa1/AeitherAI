@@ -1,10 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { LayersIcon } from './icons/LayersIcon';
 import { Bars3Icon } from './icons/Bars3Icon';
 import { XMarkIcon } from './icons/XMarkIcon';
 import { SunIcon } from './icons/SunIcon';
 import { MoonIcon } from './icons/MoonIcon';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface HeaderProps {
   onLaunchPlayground: () => void;
@@ -14,6 +16,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThemeChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(mobileMenuRef, isMenuOpen);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -67,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThe
             <LayersIcon className="w-6 h-6 text-primary-blue" />
             <span>AetherWorks</span>
           </a>
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
             {navLinks.map(link => (
               <a key={link.href} href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="text-slate-300 hover:text-primary-blue transition-colors font-semibold">
                 {link.label}
@@ -86,11 +90,17 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThe
                 <MoonIcon className="w-6 h-6" />
               )}
             </button>
-            <button onClick={onLaunchPlayground} className="hidden md:block bg-gradient-to-r from-primary-blue to-blue-600 hover:from-blue-400 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-transform hover:scale-105">
-              Get Started
+            <button onClick={onLaunchPlayground} className="hidden md:block btn-animated !py-2 !px-4">
+              <span>Get Started</span>
             </button>
             <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(true)} className="p-2 text-slate-300 hover:text-white rounded-md transition-colors" aria-label="Open menu">
+              <button 
+                onClick={() => setIsMenuOpen(true)} 
+                className="p-2 text-slate-300 hover:text-white rounded-md transition-colors" 
+                aria-label="Open menu"
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+              >
                 <Bars3Icon className="w-6 h-6" />
               </button>
             </div>
@@ -99,7 +109,7 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThe
       </header>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-dark-bg/90 backdrop-blur-lg z-50 md:hidden transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div ref={mobileMenuRef} id="mobile-menu" className={`fixed inset-0 bg-dark-bg/90 backdrop-blur-lg z-50 md:hidden transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} role="dialog" aria-modal="true">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center border-b border-border-color">
           <a href="#" onClick={(e) => handleLinkClick(e, '#')} className="flex items-center gap-2 text-white text-xl font-heading font-bold">
             <LayersIcon className="w-6 h-6 text-primary-blue" />
@@ -109,7 +119,7 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThe
             <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
-        <nav className="flex flex-col items-center justify-center h-[calc(100vh-81px)] -mt-4">
+        <nav className="flex flex-col items-center justify-center h-[calc(100vh-81px)] -mt-4" aria-label="Mobile navigation">
           <ul className="text-center space-y-8">
             {navLinks.map(link => (
               <li key={link.href}>
@@ -117,8 +127,8 @@ const Header: React.FC<HeaderProps> = ({ onLaunchPlayground, currentTheme, onThe
               </li>
             ))}
           </ul>
-           <button onClick={handleLaunchClick} className="mt-12 bg-gradient-to-r from-primary-blue to-blue-600 hover:from-blue-400 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 text-xl">
-              Get Started
+           <button onClick={handleLaunchClick} className="mt-12 btn-animated text-xl">
+              <span>Get Started</span>
             </button>
         </nav>
       </div>

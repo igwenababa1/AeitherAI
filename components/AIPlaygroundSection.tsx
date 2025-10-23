@@ -7,6 +7,7 @@ import { CodeBlock } from './CodeBlock';
 import { TerminalIcon } from './icons/TerminalIcon';
 import { GoogleAILogo } from './icons/GoogleAILogo';
 import { InformationCircleIcon } from './icons/InformationCircleIcon';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface AIPlaygroundSectionProps {
   onClose: () => void;
@@ -25,6 +26,8 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const systemPromptTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(modalRef, true);
 
 
   useEffect(() => {
@@ -103,13 +106,13 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
 
 
   return (
-    <div className="fixed inset-0 bg-dark-bg/80 backdrop-blur-lg z-50 flex items-center justify-center p-4 animate-fade-in">
+    <div ref={modalRef} className="fixed inset-0 bg-dark-bg/80 backdrop-blur-lg z-50 flex items-center justify-center p-4 animate-fade-in" role="dialog" aria-modal="true" aria-labelledby="playground-title">
       <div className="bg-card-bg border border-border-color rounded-2xl w-full max-w-6xl h-[90vh] flex flex-col shadow-2xl shadow-primary-blue/10">
         <header className="flex items-center justify-between p-4 border-b border-border-color flex-shrink-0">
           <div className="flex items-center gap-4">
             <GoogleAILogo className="w-8 h-8" />
             <div>
-                <h2 className="text-xl font-bold text-white font-heading">Advanced AI Studio</h2>
+                <h2 id="playground-title" className="text-xl font-bold text-white font-heading">Advanced AI Studio</h2>
                 <p className="text-xs text-slate-400">Powered by Google Gemini</p>
             </div>
             <div className="group relative hidden md:block">
@@ -125,7 +128,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
                 </div>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-md transition-colors">
+          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-md transition-colors" aria-label="Close AI Studio">
             <XMarkIcon className="w-6 h-6" />
           </button>
         </header>
@@ -133,23 +136,25 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
         <div className="flex-grow flex flex-col md:flex-row overflow-hidden">
           <div className="w-full md:w-[60%] p-4 flex flex-col border-r-0 md:border-r border-border-color">
             <div className="flex-grow flex flex-col">
-                <h3 className="text-lg font-semibold text-slate-200 mb-2">User Prompt</h3>
+                <label htmlFor="user-prompt" className="text-lg font-semibold text-slate-200 mb-2">User Prompt</label>
                 <textarea
+                  id="user-prompt"
                   ref={textareaRef}
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Enter your prompt here..."
-                  className="w-full h-full bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none focus:outline-none focus:ring-2 focus:ring-primary-blue flex-grow"
+                  className="w-full h-full bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none flex-grow"
                 />
             </div>
              <div className="flex-shrink-0 mt-4">
-                 <h3 className="text-lg font-semibold text-slate-200 mb-2">System Prompt</h3>
+                 <label htmlFor="system-prompt" className="text-lg font-semibold text-slate-200 mb-2">System Prompt</label>
                 <textarea
+                  id="system-prompt"
                   ref={systemPromptTextareaRef}
                   value={systemPrompt}
                   onChange={(e) => setSystemPrompt(e.target.value)}
                   placeholder="e.g., You are a Python expert who writes elegant, efficient code."
-                  className="w-full h-24 bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none focus:outline-none focus:ring-2 focus:ring-primary-blue"
+                  className="w-full h-24 bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none"
                 />
              </div>
           </div>
@@ -160,7 +165,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
                 <div className="space-y-4">
                     <div>
                         <label htmlFor="model" className="block text-sm font-medium text-slate-400 mb-1">Model</label>
-                        <select id="model" value={model} onChange={e => setModel(e.target.value)} className="w-full bg-dark-bg border border-border-color rounded-md p-2 text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-blue">
+                        <select id="model" value={model} onChange={e => setModel(e.target.value)} className="w-full bg-dark-bg border border-border-color rounded-md p-2 text-slate-300">
                             <option>gemini-2.5-pro</option>
                             <option>gemini-2.5-flash</option>
                         </select>
@@ -194,9 +199,9 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
 
             <div className="p-4 flex-grow flex flex-col overflow-y-auto">
              <h3 className="text-lg font-semibold text-slate-200 mb-3">Response</h3>
-             <div className="bg-dark-bg border border-border-color rounded-lg text-slate-300 flex-grow relative overflow-y-auto">
+             <div className="bg-dark-bg border border-border-color rounded-lg text-slate-300 flex-grow relative overflow-y-auto" aria-live="polite" role="status">
                 {isLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center" aria-label="Generating response...">
                         <div className="flex items-center gap-2 text-slate-400">
                             <SparklesIcon className="w-5 h-5 animate-spin" />
                             <span>Thinking...</span>
@@ -210,7 +215,7 @@ const AIPlaygroundSection: React.FC<AIPlaygroundSectionProps> = ({ onClose, init
                     </div>
                 )}
                 {!response && !isLoading && !error && (
-                    <div className="flex flex-col items-center justify-center h-full text-center text-slate-500 p-4">
+                    <div className="flex flex-col items-center justify-center h-full text-center text-slate-500 p-4" aria-hidden="true">
                         <TerminalIcon className="w-12 h-12 mb-2" />
                         <p>Your AI-generated response will appear here.</p>
                     </div>

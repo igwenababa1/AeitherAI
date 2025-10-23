@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { RocketLaunchIcon } from './icons/RocketLaunchIcon';
 
 interface HeroSectionProps {
   onLaunchPlayground: () => void;
@@ -24,10 +25,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onLaunchPlayground }) => {
         </p>
         <button
           onClick={onLaunchPlayground}
-          className="bg-gradient-to-r from-primary-blue to-blue-600 hover:from-blue-400 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 animate-fade-in-up"
+          className="btn-animated animate-fade-in-up"
           style={{ animationDelay: '0.6s' }}
         >
-          Launch AI Playground
+          <RocketLaunchIcon className="w-6 h-6" />
+          <span>Launch AI Playground</span>
         </button>
       </div>
     </section>

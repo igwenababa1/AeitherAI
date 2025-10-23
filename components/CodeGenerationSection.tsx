@@ -72,12 +72,13 @@ const CodeGenerationSection: React.FC = () => {
         <div className="bg-card-bg border border-border-color rounded-xl shadow-2xl shadow-primary-blue/10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
           {/* Input Panel */}
           <div className="p-6 border-b lg:border-b-0 lg:border-r border-border-color flex flex-col">
-            <h3 className="text-xl font-bold text-slate-200 mb-4 font-heading">Your Request</h3>
+            <label htmlFor="code-prompt" className="text-xl font-bold text-slate-200 mb-4 font-heading">Your Request</label>
             <textarea
+              id="code-prompt"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="e.g., A Python function that calculates the Fibonacci sequence."
-              className="w-full flex-grow bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none focus:outline-none focus:ring-2 focus:ring-primary-blue"
+              className="w-full flex-grow bg-dark-bg border border-border-color rounded-lg p-3 text-slate-300 resize-none"
               rows={8}
             />
             <button
@@ -93,9 +94,9 @@ const CodeGenerationSection: React.FC = () => {
           {/* Output Panel */}
           <div className="p-6 flex flex-col">
             <h3 className="text-xl font-bold text-slate-200 mb-4 font-heading">Generated Code</h3>
-            <div className="bg-dark-bg border border-border-color rounded-lg flex-grow relative overflow-hidden">
+            <div className="bg-dark-bg border border-border-color rounded-lg flex-grow relative overflow-hidden" role="status" aria-live="polite">
               {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center" aria-label="Generating code...">
                   <div className="flex items-center gap-2 text-slate-400">
                     <SparklesIcon className="w-5 h-5 animate-spin" />
                     <span>Writing code...</span>
@@ -109,7 +110,7 @@ const CodeGenerationSection: React.FC = () => {
                 </div>
               )}
               {!generatedCode && !isLoading && !error && (
-                <div className="flex flex-col items-center justify-center h-full text-center text-slate-500 p-4">
+                <div className="flex flex-col items-center justify-center h-full text-center text-slate-500 p-4" aria-hidden="true">
                   <TerminalIcon className="w-12 h-12 mb-2" />
                   <p>Your generated code will appear here.</p>
                 </div>

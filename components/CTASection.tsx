@@ -1,3 +1,4 @@
+
 import React from 'react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import { RocketLaunchIcon } from './icons/RocketLaunchIcon';
@@ -26,9 +27,10 @@ const CTASection: React.FC<CTASectionProps> = ({ onLaunchPlayground }) => {
                 </p>
                 <button
                     onClick={onLaunchPlayground}
-                    className="bg-gradient-to-r from-primary-blue to-blue-600 hover:from-blue-400 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105"
+                    className="btn-animated"
                 >
-                    Start Your First Build
+                    <RocketLaunchIcon className="w-6 h-6" />
+                    <span>Start Your First Build</span>
                 </button>
             </div>
         </div>

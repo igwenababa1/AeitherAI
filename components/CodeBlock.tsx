@@ -8,9 +8,10 @@ declare const hljs: any;
 interface CodeBlockProps {
   language: string;
   code: string;
+  showCopyButton?: boolean;
 }
 
-export const CodeBlock: React.FC<CodeBlockProps> = ({ language, code }) => {
+export const CodeBlock: React.FC<CodeBlockProps> = ({ language, code, showCopyButton = true }) => {
   const codeRef = useRef<HTMLElement>(null);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -35,13 +36,15 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ language, code }) => {
           {code}
         </code>
       </pre>
-      <button
-        onClick={handleCopy}
-        className="absolute top-2 right-2 p-1.5 rounded-md bg-border-color hover:bg-slate-600 text-slate-300 transition-colors"
-        aria-label="Copy code to clipboard"
-      >
-        {isCopied ? <CheckIcon className="w-4 h-4 text-green-400" /> : <ClipboardIcon className="w-4 h-4" />}
-      </button>
+      {showCopyButton && (
+        <button
+          onClick={handleCopy}
+          className="absolute top-2 right-2 p-1.5 rounded-md bg-border-color hover:bg-slate-600 text-slate-300 transition-colors"
+          aria-label="Copy code to clipboard"
+        >
+          {isCopied ? <CheckIcon className="w-4 h-4 text-green-400" /> : <ClipboardIcon className="w-4 h-4" />}
+        </button>
+      )}
     </div>
   );
 };

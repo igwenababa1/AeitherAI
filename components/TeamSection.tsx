@@ -63,10 +63,10 @@ const TeamMemberCard: React.FC<TeamMember> = ({ name, role, imageUrl, socials })
       <h3 className="text-xl font-bold text-white mb-1 font-heading">{name}</h3>
       <p className="text-primary-blue mb-4">{role}</p>
       <div className="flex justify-center gap-4">
-        <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+        <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors" aria-label={`${name}'s LinkedIn`}>
           <LinkedInIcon className="w-6 h-6" />
         </a>
-        <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+        <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors" aria-label={`${name}'s Twitter`}>
           <TwitterIcon className="w-6 h-6" />
         </a>
       </div>

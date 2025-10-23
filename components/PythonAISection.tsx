@@ -71,9 +71,11 @@ def handler(event, context):
 
 const FeatureCard: React.FC<PythonFeature & { isActive: boolean; onClick: () => void; }> = ({ icon: Icon, title, description, code, isActive, onClick }) => (
   <div className="card-3d-container h-full">
-    <div 
+    <button
+      type="button"
       onClick={onClick}
-      className={`bg-card-bg p-6 rounded-xl border card-3d cursor-pointer transition-all duration-300 ease-in-out ${isActive ? 'border-primary-blue' : 'border-border-color'}`}
+      className={`bg-card-bg p-6 rounded-xl border card-3d text-left w-full h-full transition-all duration-300 ease-in-out ${isActive ? 'border-primary-blue' : 'border-border-color'}`}
+      aria-expanded={isActive}
     >
       <div className="bg-border-color rounded-lg w-12 h-12 flex items-center justify-center mb-4">
         <Icon className="w-8 h-8 text-primary-blue" />
@@ -85,7 +87,7 @@ const FeatureCard: React.FC<PythonFeature & { isActive: boolean; onClick: () => 
           <CodeBlock language="python" code={code} />
         </div>
       )}
-    </div>
+    </button>
   </div>
 );
 
